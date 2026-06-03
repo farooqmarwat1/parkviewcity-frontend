@@ -156,7 +156,7 @@ export default function HeroStack() {
   return (
     <div
       ref={ref}
-      className="relative h-dvh overflow-hidden bg-black"
+      className="relative h-dvh overflow-hidden"
       style={{ touchAction: "none" }}
     >
       {heroes.map((hero, i) => (

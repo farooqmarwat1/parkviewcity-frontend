@@ -17,22 +17,23 @@ export default function Navbar() {
   }, []);
 
   const linkClass = [
-    "group relative pb-1 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-200 cursor-pointer font-roboto whitespace-nowrap",
+    "group relative pb-1 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer font-roboto whitespace-nowrap",
     solid ? "text-pvc-ink/75 hover:text-pvc-green" : "text-white/85 hover:text-white",
   ].join(" ");
 
   const underline = `absolute bottom-0 left-0 h-px w-0 bg-pvc-gold transition-all duration-300 group-hover:w-full`;
 
   return (
-    <header className={[
-      "fixed inset-x-0 top-0 z-40 transition-all duration-300",
-      solid
-        ? "bg-white/15 backdrop-blur-2xl border-b border-white/20 shadow-[0_1px_20px_rgba(0,0,0,0.04)]"
-        : "bg-gradient-to-b from-black/50 to-transparent",
-    ].join(" ")}>
+    <header className="fixed inset-x-0 top-0 z-40">
+
+      {/* Background layer 1 — dark gradient for hero readability (fades out when solid) */}
+      <div className={`pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 to-transparent transition-opacity duration-300 ${solid ? "opacity-0" : "opacity-100"}`} />
+
+      {/* Background layer 2 — blurred white for scrolled state (fades in when solid) */}
+      <div className={`pointer-events-none absolute inset-0 bg-white/20 backdrop-blur-2xl border-b border-gray-200/60 transition-opacity duration-300 ${solid ? "opacity-100" : "opacity-0"}`} />
 
       {/* ── Desktop bar ───────────────────────────────── */}
-      <div className="relative mx-auto hidden h-[75px] max-w-[1500px] items-center px-10 lg:flex">
+      <div className="relative z-10 mx-auto hidden h-[75px] max-w-[1500px] items-center px-10 lg:flex">
 
         {/* Center: left links + logo + right links */}
         <nav className="absolute hidden items-center gap-7 lg:flex" style={{ left: "calc(50% - 40px)", transform: "translateX(-50%)" }}>
@@ -45,7 +46,7 @@ export default function Navbar() {
             <img
               src={solid ? "/blacklogo.png" : "/whitelogo.png"}
               alt="Park View City"
-              className="h-[50px] w-auto object-contain transition-all duration-300"
+              className="h-[50px] w-auto object-contain transition-opacity duration-300"
             />
           </a>
           {rightLinks.map(link => (
@@ -71,17 +72,14 @@ export default function Navbar() {
       </div>
 
       {/* ── Mobile bar ────────────────────────────────── */}
-      <div className="flex h-[70px] items-center justify-between px-5 lg:hidden">
-        {/* Logo */}
+      <div className="relative z-10 flex h-[70px] items-center justify-between px-5 lg:hidden">
         <a href="#" className="flex items-center">
           <img
             src={solid ? "/blacklogo.png" : "/whitelogo.png"}
             alt="Park View City"
-            className="h-[52px] w-auto object-contain transition-all duration-300"
+            className="h-[52px] w-auto object-contain transition-opacity duration-300"
           />
         </a>
-
-        {/* Hamburger */}
         <button
           className={["transition-colors duration-200 cursor-pointer p-2",
             solid ? "text-pvc-ink" : "text-white"].join(" ")}
