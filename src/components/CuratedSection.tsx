@@ -11,7 +11,6 @@ const columns: Item[][] = [
   [{ tall: false }, { tall: true }, { tall: true }, { tall: false }],
 ];
 
-// Placeholder titles for the 16 images - you can change these to match your projects
 const imageTitles = [
   "The Walk", "Overseas Block", "Downtown Residency", "Golf Estate",
   "The Lake District", "Sky Residency", "Commercial Broadway", "Hill View",
@@ -43,17 +42,21 @@ export default function CuratedSection() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Parallax Logic
-  const slow = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -650 : -300]);
-  const fast = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -1500 : -750]);
+  /**
+   * SPEED ADJUSTMENT:
+   * Slower values on mobile (Slow -250 | Fast -450) prevent 
+   * a large "empty" gap from forming below the images.
+   */
+  const slow = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -250 : -300]);
+  const fast = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -450 : -750]);
   const ys = [slow, fast, slow, fast];
 
-  // Opacity Middle Ground
   const marqueeOpacity = useTransform(scrollYProgress, [0, 0.1, 0.35], [1, 1, 0]);
   const marqueeFilter = useTransform(scrollYProgress, [0, 0.1, 0.35], ["blur(0px)", "blur(0px)", "blur(12px)"]);
 
   return (
-    <section className="relative bg-white pt-24 pb-0 sm:pt-32 -mb-28 overflow-hidden">
+    /* FIXED SPACING: pt-16 for mobile, and a small negative margin to avoid clipping */
+    <section className="relative bg-white pt-16 sm:pt-32 pb-0 -mb-10 sm:-mb-32 overflow-hidden">
       <style dangerouslySetInnerHTML={{ __html: `
             @keyframes marquee {
                 0% { transform: translateX(0); }
@@ -90,7 +93,7 @@ export default function CuratedSection() {
 
         {/* Marquee */}
         <motion.div
-          className="w-full overflow-hidden mt-10 mb-4"
+          className="w-full overflow-hidden mt-8 mb-2"
           style={{ opacity: marqueeOpacity, filter: marqueeFilter }}
         >
           <div
@@ -116,7 +119,7 @@ export default function CuratedSection() {
       </motion.div>
 
       {/* Grid */}
-      <div ref={gridRef} className="relative mx-auto mt-4 sm:mt-10 max-w-[1400px] px-6 sm:px-10">
+      <div ref={gridRef} className="relative mx-auto mt-2 sm:mt-10 max-w-[1400px] px-4 sm:px-10">
         <div className="grid grid-cols-2 gap-2 sm:gap-2.5 md:grid-cols-4">
           {columns.map((col, colIdx) => (
             <motion.div 
@@ -135,17 +138,14 @@ export default function CuratedSection() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, amount: 0.05 }}
-                    className={`group relative w-full overflow-hidden rounded-[15px] ${
+                    className={`group relative w-full overflow-hidden rounded-[15px] shadow-sm ${
                       item.tall ? "aspect-[3/4]" : "aspect-[4/5]"
                     }`}
                   >
-                    {/* Background Image */}
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] ease-out group-hover:scale-105"
                       style={{ backgroundImage: `url('/${imageNumber}.png')` }}
                     />
-
-                    {/* Gradient Overlay & Title */}
                     <figcaption className="absolute inset-x-0 bottom-0 z-10 p-4 pt-10 bg-gradient-to-t from-black/60 to-transparent">
                       <p className="text-white font-termina text-[10px] sm:text-[12px] uppercase tracking-wider font-medium">
                         {imageTitles[imageIndex] || "Parkview City"}
