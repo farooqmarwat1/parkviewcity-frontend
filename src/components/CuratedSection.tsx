@@ -42,21 +42,18 @@ export default function CuratedSection() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  /**
-   * SPEED ADJUSTMENT:
-   * Slower values on mobile (Slow -250 | Fast -450) prevent 
-   * a large "empty" gap from forming below the images.
-   */
-  const slow = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -250 : -300]);
-  const fast = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -450 : -750]);
+  // Mobile: dramatic ratio (fast ~3× slow) but smaller absolute values to reduce bottom gap
+  const slow = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -120 : -300]);
+  const fast = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -360 : -750]);
   const ys = [slow, fast, slow, fast];
 
-  const marqueeOpacity = useTransform(scrollYProgress, [0, 0.1, 0.35], [1, 1, 0]);
-  const marqueeFilter = useTransform(scrollYProgress, [0, 0.1, 0.35], ["blur(0px)", "blur(0px)", "blur(12px)"]);
+  // Marquee fades + blurs out early and completely (works for both mobile & web)
+  const marqueeOpacity = useTransform(scrollYProgress, [0.04, 0.14, 0.24], [1, 1, 0]);
+  const marqueeFilter  = useTransform(scrollYProgress, [0.04, 0.14, 0.24], ["blur(0px)", "blur(0px)", "blur(12px)"]);
 
   return (
-    /* FIXED SPACING: pt-16 for mobile, and a small negative margin to avoid clipping */
-    <section className="relative bg-white pt-16 sm:pt-32 pb-0 -mb-10 sm:-mb-32 overflow-hidden">
+    // Increased mobile negative margin (-mb-[220px]) to pull StatsSection up and close the gap
+    <section className="relative bg-white pt-16 sm:pt-32 pb-0 -mb-[220px] sm:-mb-32 overflow-hidden">
       <style dangerouslySetInnerHTML={{ __html: `
             @keyframes marquee {
                 0% { transform: translateX(0); }
