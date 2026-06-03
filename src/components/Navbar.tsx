@@ -32,7 +32,7 @@ export default function Navbar() {
     ].join(" ")}>
 
       {/* ── Desktop bar ───────────────────────────────── */}
-      <div className="relative mx-auto hidden h-[110px] max-w-[1500px] items-center px-10 lg:flex">
+      <div className="relative mx-auto hidden h-[75px] max-w-[1500px] items-center px-10 lg:flex">
 
         {/* Center: left links + logo + right links */}
         <nav className="absolute hidden items-center gap-7 lg:flex" style={{ left: "calc(50% - 40px)", transform: "translateX(-50%)" }}>
@@ -41,11 +41,11 @@ export default function Navbar() {
               {link}<span className={underline} />
             </a>
           ))}
-          <a href="#" className="flex cursor-pointer items-center px-5">
+          <a href="#" className="flex cursor-pointer items-center px-6">
             <img
               src={solid ? "/blacklogo.png" : "/whitelogo.png"}
               alt="Park View City"
-              className="h-[90px] w-auto object-contain transition-all duration-300"
+              className="h-[50px] w-auto object-contain transition-all duration-300"
             />
           </a>
           {rightLinks.map(link => (

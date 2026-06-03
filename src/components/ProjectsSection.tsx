@@ -29,7 +29,7 @@ export default function ProjectsSection() {
           variants={fadeUp} initial="hidden" whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
           className="mb-4 text-center font-termina text-[24px] sm:text-[32px] lg:text-[40px] font-normal text-pvc-navy">
-          Discover Your Dream Property
+          DISCOVER YOUR DREAM PROPERTY
         </motion.h2>
 
         {/* Subheading */}

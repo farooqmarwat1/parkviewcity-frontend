@@ -45,7 +45,7 @@ export default function AmenitiesSection() {
           viewport={{ once: true, amount: 0.4 }}
           className="mb-4 text-center">
           <h2 className="font-termina text-[24px] sm:text-[32px] lg:text-[40px] font-normal text-pvc-navy">
-            Every Luxury, Within Reach
+            EVERY LUXURY, WITHIN REACH
           </h2>
           <p className="mt-5 lg:whitespace-nowrap leading-relaxed text-pvc-grey" style={{ fontFamily: "'Roboto', sans-serif", fontSize: "16px" }}>
             From grand promenades to intimate parks, Park View City offers over 40 world-class amenities within its master-planned community.

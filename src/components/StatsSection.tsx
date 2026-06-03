@@ -61,11 +61,9 @@ function StatCard({ Icon, to, from, prefix, suffix, format, label }: typeof rowO
       className="flex flex-col items-center text-center gap-3"
     >
       <Icon />
-      {/* Numbers: Termina, 40px, #1D2D4E */}
       <p className="font-termina text-[28px] sm:text-[36px] lg:text-[40px]" style={{ color: "#1D2D4E" }}>
         <Counter to={to} from={from} prefix={prefix} suffix={suffix} format={format} />
       </p>
-      {/* Labels: Roboto, 14px, #58595B */}
       <p className="font-roboto" style={{ fontSize: "14px", color: "#58595B" }}>{label}</p>
     </motion.div>
   );
@@ -76,6 +74,17 @@ export default function StatsSection() {
 
   return (
     <section className="relative overflow-hidden bg-white pt-14 pb-10 sm:pt-28 sm:pb-12">
+      {/* Ensure Optima is loaded from public folder */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        @font-face {
+          font-family: 'Optima';
+          src: url('/optima-bold.woff2') format('woff2'),
+               url('/optima-bold.woff') format('woff');
+          font-weight: bold;
+          font-style: normal;
+        }
+      `}} />
+
       <div className="relative mx-auto max-w-[1000px] px-6 sm:px-10 flex flex-col items-center">
 
         {/* Title with P watermark */}
@@ -84,18 +93,26 @@ export default function StatsSection() {
           viewport={{ once: true, amount: 0.5 }}
           className="relative flex items-center justify-center">
           <span
-            className="pointer-events-none absolute font-termina font-bold leading-none select-none"
-            style={{ fontSize: "clamp(160px, 18vw, 260px)", color: "#c9a24b", opacity: 0.1, transform: "translateX(30px)" }}
+            className="pointer-events-none absolute select-none leading-none"
+            style={{ 
+              fontFamily: 'Optima, sans-serif',
+              fontWeight: 'bold',
+              /* Increased size from 160-260px to 200-320px */
+              fontSize: "clamp(200px, 22vw, 320px)", 
+              color: "#c9a24b", 
+              opacity: 0.1, 
+              transform: "translateX(35px)" 
+            }}
             aria-hidden="true"
           >P</span>
-          {/* Heading: Termina, 40px, #1D2D4E */}
+          
           <h2 className="relative text-center font-termina uppercase leading-[1.2] tracking-[0.14em] text-[24px] sm:text-[32px] lg:text-[40px]"
               style={{ color: blueColor }}>
             The Premier Luxury<br />Property Developer
           </h2>
         </motion.div>
 
-        {/* Sub-heading: Roboto, 11px, #1D2D4E */}
+        {/* Sub-heading */}
         <motion.p
           variants={fadeUp} initial="hidden" whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
@@ -109,7 +126,7 @@ export default function StatsSection() {
           {rowOne.map((s, i) => <StatCard key={i} {...s} />)}
         </div>
 
-        {/* Sub-heading: Roboto, 11px, #1D2D4E */}
+        {/* Sub-heading */}
         <motion.p
           variants={fadeUp} initial="hidden" whileInView="show"
           viewport={{ once: true, amount: 0.4 }}

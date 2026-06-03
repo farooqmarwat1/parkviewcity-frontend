@@ -47,7 +47,7 @@ export default function ContactSection() {
           viewport={{ once: true, amount: 0.4 }}
           className="mb-14 text-center">
           <h2 className="font-termina text-[24px] sm:text-[32px] lg:text-[40px] font-normal text-pvc-navy">
-            Begin Your Journey Home
+            BEGIN YOUR JOURNEY HOME
           </h2>
           <p className="mt-4 lg:whitespace-nowrap leading-relaxed text-pvc-grey" style={{ fontFamily: "'Roboto', sans-serif", fontSize: "16px" }}>
             Our dedicated sales consultants are here to guide you through every step — from choosing the right plot to completing your paperwork.
