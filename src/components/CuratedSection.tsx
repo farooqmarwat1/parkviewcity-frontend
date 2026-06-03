@@ -1,7 +1,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 
-// We keep 'tall' to maintain the masonry layout logic
+// Masonry layout logic
 type Item = { tall: boolean };
 
 const columns: Item[][] = [
@@ -9,6 +9,14 @@ const columns: Item[][] = [
   [{ tall: false }, { tall: true }, { tall: false }, { tall: true }],
   [{ tall: true }, { tall: false }, { tall: false }, { tall: true }],
   [{ tall: false }, { tall: true }, { tall: true }, { tall: false }],
+];
+
+// Placeholder titles for the 16 images - you can change these to match your projects
+const imageTitles = [
+  "The Walk", "Overseas Block", "Downtown Residency", "Golf Estate",
+  "The Lake District", "Sky Residency", "Commercial Broadway", "Hill View",
+  "Botanical Garden", "Silver City", "Crystal Lake", "The Boulevard",
+  "Central Park", "Sunset Point", "Grand Mosque", "Community Hub"
 ];
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -23,7 +31,7 @@ export default function CuratedSection() {
 
   const { scrollYProgress } = useScroll({
     target: gridRef,
-    offset: ["start end", "end start"],
+    offset: ["start 0.9", "end start"],
   });
 
   const [isMobile, setIsMobile] = useState(() =>
@@ -35,17 +43,24 @@ export default function CuratedSection() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Mobile grid is ~2× taller (2 cols vs 4), so double the values to keep the same visual intensity
-  const slow = useTransform(scrollYProgress, [0, 1], [0, isMobile ? -650 : -300]);
-  const fast = useTransform(scrollYProgress, [0, 1], [0, isMobile ? -1500 : -750]);
+  // Parallax Logic
+  const slow = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -650 : -300]);
+  const fast = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -1500 : -750]);
   const ys = [slow, fast, slow, fast];
 
-  // Marquee fades out and blurs as the grid images scroll into view
-  const marqueeOpacity = useTransform(scrollYProgress, [0, 0.12], [1, 0]);
-  const marqueeFilter = useTransform(scrollYProgress, [0, 0.12], ["blur(0px)", "blur(10px)"]);
+  // Opacity Middle Ground
+  const marqueeOpacity = useTransform(scrollYProgress, [0, 0.1, 0.35], [1, 1, 0]);
+  const marqueeFilter = useTransform(scrollYProgress, [0, 0.1, 0.35], ["blur(0px)", "blur(0px)", "blur(12px)"]);
 
   return (
-    <section className="relative bg-white pt-16 pb-0 sm:pt-32 -mb-40">
+    <section className="relative bg-white pt-24 pb-0 sm:pt-32 -mb-28 overflow-hidden">
+      <style dangerouslySetInnerHTML={{ __html: `
+            @keyframes marquee {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(-50%); }
+            }
+        ` }} />
+
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_60%_at_50%_0%,rgba(201,162,75,0.06),transparent_60%)]" />
 
       {/* Header */}
@@ -54,16 +69,16 @@ export default function CuratedSection() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, amount: 0.4 }}
-        className="relative mx-auto flex flex-col items-center gap-4 px-6"
+        className="relative z-10 mx-auto flex flex-col items-center justify-center text-center px-6"
       >
         <p
-          className="font-termina text-center font-medium uppercase tracking-[0.1em] text-[24px] sm:text-[32px] lg:text-[40px]"
+          className="font-termina font-medium uppercase tracking-[0.1em] text-[24px] sm:text-[32px] lg:text-[40px] max-w-5xl"
           style={{ color: "#1D2D4E" }}
         >
           A New Realm of Curated Collaborations
         </p>
         <p
-          className="font-roboto mx-auto mt-4 max-w-[1100px] px-2 text-center leading-relaxed text-pvc-ink/70"
+          className="font-roboto mt-4 max-w-[1100px] px-2 leading-relaxed text-pvc-ink/70"
           style={{ fontSize: "16px" }}
         >
           Parkview City is more than a real estate development. It is a growing
@@ -75,21 +90,25 @@ export default function CuratedSection() {
 
         {/* Marquee */}
         <motion.div
-          className="w-full overflow-hidden mt-10 mb-14"
+          className="w-full overflow-hidden mt-10 mb-4"
           style={{ opacity: marqueeOpacity, filter: marqueeFilter }}
         >
           <div
-            className="flex items-center gap-20"
-            style={{ animation: "marquee 18s linear infinite", width: "max-content" }}
+            className="flex items-center"
+            style={{ 
+              animation: "marquee 22s linear infinite", 
+              width: "max-content",
+              display: "flex" 
+            }}
           >
-            {[...Array(2)].map((_, set) => (
-              <div key={set} className="flex items-center gap-20">
-                <img src="/PVIsb.png" alt="Islamabad" className="h-20 w-auto object-contain" />
-                <img src="/PVLahore.png" alt="Lahore" className="h-20 w-auto object-contain" />
-                <img src="/PVrawalpindi.png" alt="Rawalpindi" className="h-20 w-auto object-contain" />
-                <img src="/PVIsb.png" alt="Islamabad" className="h-20 w-auto object-contain" />
-                <img src="/PVLahore.png" alt="Lahore" className="h-20 w-auto object-contain" />
-                <img src="/PVrawalpindi.png" alt="Rawalpindi" className="h-20 w-auto object-contain" />
+            {[...Array(3)].map((_, set) => (
+              <div key={set} className="flex items-center gap-24 px-12">
+                <img src="/PVIsb.png" alt="Islamabad" className="h-16 sm:h-20 w-auto object-contain" />
+                <img src="/PVLahore.png" alt="Lahore" className="h-16 sm:h-20 w-auto object-contain" />
+                <img src="/PVrawalpindi.png" alt="Rawalpindi" className="h-16 sm:h-20 w-auto object-contain" />
+                <img src="/PVIsb.png" alt="Islamabad" className="h-16 sm:h-20 w-auto object-contain" />
+                <img src="/PVLahore.png" alt="Lahore" className="h-16 sm:h-20 w-auto object-contain" />
+                <img src="/PVrawalpindi.png" alt="Rawalpindi" className="h-16 sm:h-20 w-auto object-contain" />
               </div>
             ))}
           </div>
@@ -97,13 +116,17 @@ export default function CuratedSection() {
       </motion.div>
 
       {/* Grid */}
-      <div className="relative mx-auto mt-16 max-w-[1400px] px-6 sm:px-10">
-        <div ref={gridRef} className="grid grid-cols-2 gap-2 sm:gap-2.5 md:grid-cols-4">
+      <div ref={gridRef} className="relative mx-auto mt-4 sm:mt-10 max-w-[1400px] px-6 sm:px-10">
+        <div className="grid grid-cols-2 gap-2 sm:gap-2.5 md:grid-cols-4">
           {columns.map((col, colIdx) => (
-            <motion.div key={colIdx} style={{ y: ys[colIdx] }} className="flex flex-col gap-2 sm:gap-2.5">
+            <motion.div 
+              key={colIdx} 
+              style={{ y: ys[colIdx] }} 
+              className="flex flex-col gap-2 sm:gap-2.5"
+            >
               {col.map((item, itemIdx) => {
-                // Logic to get image number 1 through 16
-                const imageNumber = colIdx * 4 + itemIdx + 1;
+                const imageIndex = colIdx * 4 + itemIdx;
+                const imageNumber = imageIndex + 1;
                 
                 return (
                   <motion.figure
@@ -112,15 +135,22 @@ export default function CuratedSection() {
                     initial="hidden"
                     whileInView="show"
                     viewport={{ once: true, amount: 0.05 }}
-                    // Added rounded-[15px] and removed figcaption
                     className={`group relative w-full overflow-hidden rounded-[15px] ${
                       item.tall ? "aspect-[3/4]" : "aspect-[4/5]"
                     }`}
                   >
+                    {/* Background Image */}
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] ease-out group-hover:scale-105"
                       style={{ backgroundImage: `url('/${imageNumber}.png')` }}
                     />
+
+                    {/* Gradient Overlay & Title */}
+                    <figcaption className="absolute inset-x-0 bottom-0 z-10 p-4 pt-10 bg-gradient-to-t from-black/60 to-transparent">
+                      <p className="text-white font-termina text-[10px] sm:text-[12px] uppercase tracking-wider font-medium">
+                        {imageTitles[imageIndex] || "Parkview City"}
+                      </p>
+                    </figcaption>
                   </motion.figure>
                 );
               })}
