@@ -43,8 +43,8 @@ export default function CuratedSection() {
   }, []);
 
   // Mobile: 2.5× ratio gives clear speed difference; small absolute values reduce empty bottom space
-  const slow = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -80 : -300]);
-  const fast = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -200 : -750]);
+  const slow = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -140 : -450]);
+  const fast = useTransform(scrollYProgress, [0, 0.1, 1], [0, 0, isMobile ? -350 : -1050]);
   const ys = [slow, fast, slow, fast];
 
   // Marquee completes fade BEFORE images reach it (progress ~0.16 < image overlap ~0.20)
