@@ -1,0 +1,140 @@
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, type Variants } from "framer-motion";
+
+/* ── Animated counter ──────────────────────────────────────── */
+function Counter({
+  to, from = 0, prefix = "", suffix = "", duration = 2200, format = true,
+}: {
+  to: number; from?: number; prefix?: string; suffix?: string;
+  duration?: number; format?: boolean;
+}) {
+  const ref    = useRef<HTMLElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const [val, setVal] = useState(from);
+
+  useEffect(() => {
+    if (!inView) return;
+    const start = performance.now();
+    const tick  = (now: number) => {
+      const p   = Math.min((now - start) / duration, 1);
+      const exp = 1 - Math.pow(1 - p, 3);
+      const cur = Math.floor(from + exp * (to - from));
+      setVal(cur);
+      if (p < 1) requestAnimationFrame(tick);
+      else setVal(to);
+    };
+    requestAnimationFrame(tick);
+  }, [inView, to, from, duration]);
+
+  const display = format ? val.toLocaleString() : String(val);
+  return <span ref={ref as React.RefObject<HTMLElement>}>{prefix}{display}{suffix}</span>;
+}
+
+/* ── Gold SVG icons ────────────────────────────────────────── */
+const s = { stroke: "#c9a24b", strokeWidth: 1.2, fill: "none", strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+const IconHome     = () => <svg viewBox="0 0 56 56" width={44} height={44}><path d="M10 26L28 10l18 16v20a2 2 0 01-2 2H12a2 2 0 01-2-2V26z" {...s}/><path d="M22 48V34h12v14" {...s}/></svg>;
+const IconPin      = () => <svg viewBox="0 0 56 56" width={44} height={44}><path d="M28 6C20.268 6 14 12.268 14 20c0 10 14 30 14 30s14-20 14-30c0-7.732-6.268-14-14-14z" {...s}/><circle cx="28" cy="20" r="5" {...s}/></svg>;
+const IconTrend    = () => <svg viewBox="0 0 56 56" width={44} height={44}><path d="M8 38 L20 26 L30 32 L46 16" {...s}/><path d="M38 16h8v8" {...s}/></svg>;
+
+const rowOne = [
+  { Icon: IconHome,  to: 15000, from: 0, prefix: "", suffix: "+", format: true,  label: "Residential Plots Delivered" },
+  { Icon: IconPin,   to: 818,   from: 0, prefix: "", suffix: "+", format: true,  label: "Commercial Plots Delivered" },
+  { Icon: IconTrend, to: 500,   from: 0, prefix: "", suffix: "+", format: false, label: "Residents" },
+];
+const rowTwo = [
+  { Icon: IconHome,  to: 20000, from: 0, prefix: "", suffix: "+", format: true,  label: "Residential Plots Delivered" },
+  { Icon: IconPin,   to: 200,   from: 0, prefix: "", suffix: "+", format: false, label: "Commercial Plots Delivered" },
+  { Icon: IconTrend, to: 35000, from: 0, prefix: "", suffix: "+", format: true,  label: "Residents" },
+];
+
+const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 32 },
+  show:   { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOut } },
+};
+
+function StatCard({ Icon, to, from, prefix, suffix, format, label }: typeof rowOne[0]) {
+  return (
+    <motion.div
+      variants={fadeUp} initial="hidden" whileInView="show"
+      viewport={{ once: true, amount: 0.4 }}
+      className="flex flex-col items-center text-center gap-3"
+    >
+      <Icon />
+      {/* Numbers: Termina, 40px, #1D2D4E */}
+      <p className="font-termina text-[28px] sm:text-[36px] lg:text-[40px]" style={{ color: "#1D2D4E" }}>
+        <Counter to={to} from={from} prefix={prefix} suffix={suffix} format={format} />
+      </p>
+      {/* Labels: Roboto, 14px, #58595B */}
+      <p className="font-roboto" style={{ fontSize: "14px", color: "#58595B" }}>{label}</p>
+    </motion.div>
+  );
+}
+
+export default function StatsSection() {
+  const blueColor = "#1D2D4E";
+
+  return (
+    <section className="relative overflow-hidden bg-white pt-14 pb-10 sm:pt-28 sm:pb-12">
+      <div className="relative mx-auto max-w-[1000px] px-6 sm:px-10 flex flex-col items-center">
+
+        {/* Title with P watermark */}
+        <motion.div
+          variants={fadeUp} initial="hidden" whileInView="show"
+          viewport={{ once: true, amount: 0.5 }}
+          className="relative flex items-center justify-center">
+          <span
+            className="pointer-events-none absolute font-termina font-bold leading-none select-none"
+            style={{ fontSize: "clamp(160px, 18vw, 260px)", color: "#c9a24b", opacity: 0.1, transform: "translateX(30px)" }}
+            aria-hidden="true"
+          >P</span>
+          {/* Heading: Termina, 40px, #1D2D4E */}
+          <h2 className="relative text-center font-termina uppercase leading-[1.2] tracking-[0.14em] text-[24px] sm:text-[32px] lg:text-[40px]"
+              style={{ color: blueColor }}>
+            The Premier Luxury<br />Property Developer
+          </h2>
+        </motion.div>
+
+        {/* Sub-heading: Roboto, 11px, #1D2D4E */}
+        <motion.p
+          variants={fadeUp} initial="hidden" whileInView="show"
+          viewport={{ once: true, amount: 0.5 }}
+          className="mt-10 font-roboto uppercase tracking-[0.34em]"
+          style={{ fontSize: "11px", color: blueColor }}>
+          Parkview City at a Glance
+        </motion.p>
+
+        {/* Row 1 */}
+        <div className="mt-10 grid w-full grid-cols-1 gap-10 sm:grid-cols-3">
+          {rowOne.map((s, i) => <StatCard key={i} {...s} />)}
+        </div>
+
+        {/* Sub-heading: Roboto, 11px, #1D2D4E */}
+        <motion.p
+          variants={fadeUp} initial="hidden" whileInView="show"
+          viewport={{ once: true, amount: 0.4 }}
+          className="mt-16 font-roboto uppercase tracking-[0.34em]"
+          style={{ fontSize: "11px", color: blueColor }}>
+          Expanding Communities
+        </motion.p>
+
+        {/* Row 2 */}
+        <div className="mt-10 grid w-full grid-cols-1 gap-10 sm:grid-cols-3">
+          {rowTwo.map((s, i) => <StatCard key={i} {...s} />)}
+        </div>
+
+        {/* Explore button */}
+        <motion.div
+          variants={fadeUp} initial="hidden" whileInView="show"
+          viewport={{ once: true, amount: 0.4 }}
+          className="mt-14">
+          <a href="#"
+            className="rounded-full border border-black/10 px-12 py-3 font-roboto text-[12px] uppercase tracking-[0.2em] transition-all duration-300 hover:border-[#c9a24b] hover:text-[#c9a24b] cursor-pointer"
+            style={{ color: "#58595B" }}>
+            Explore
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

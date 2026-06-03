@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+/* ── Design tokens ───────────────────────────────────────── */
+@theme {
+  /* Brand colours */
+  --color-pvc-green:      #0c3d2e;
+  --color-pvc-green-dark: #06241b;
+  --color-pvc-green-deep: #04140e;
+  --color-pvc-gold:       #c9a24b;
+  --color-pvc-gold-light: #e4c986;
+  --color-pvc-cream:      #f6f1e7;
+  --color-pvc-sand:       #efe7d6;
+  --color-pvc-ink:        #14180f;
+  --color-pvc-navy:       #1D2D4E;
+  --color-pvc-grey:       #58595B;
+
+  /* Fonts */
+  --font-display: "Cinzel", serif;
+  --font-sans:    "Josefin Sans", sans-serif;
+  --font-roboto:  "Roboto", sans-serif;
+  --font-termina: "TerminaTest", "Barlow", sans-serif;
+
+  /* Custom animations */
+  --animate-kenburns: kenburns 22s ease-in-out infinite alternate;
+  --animate-cue:      cueBounce 1.8s ease-in-out infinite;
+  --animate-marquee:  marquee 18s linear infinite;
+}
+
+/* ── Keyframes ───────────────────────────────────────────── */
+@keyframes kenburns {
+  from { transform: scale(1)    translate3d(0, 0, 0); }
+  to   { transform: scale(1.14) translate3d(0, -1.5%, 0); }
+}
+@keyframes cueBounce {
+  0%, 100% { transform: translateY(0);  opacity: .9; }
+  50%       { transform: translateY(8px); opacity: .35; }
+}
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-kenburns,
+  .animate-cue { animation: none; }
+}
+
+/* ── Utilities ───────────────────────────────────────────── */
+@layer utilities {
+  .no-scrollbar { scrollbar-width: none; -ms-overflow-style: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}
+
+/* ── Termina Test ────────────────────────────────────────── */
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-Thin.otf") format("opentype");
+  font-weight: 100; font-display: swap;
+}
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-ExtraLight.otf") format("opentype");
+  font-weight: 200; font-display: swap;
+}
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-Light.otf") format("opentype");
+  font-weight: 300; font-display: swap;
+}
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-Regular.otf") format("opentype");
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-Medium.otf") format("opentype");
+  font-weight: 500; font-display: swap;
+}
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-Demi.otf") format("opentype");
+  font-weight: 600; font-display: swap;
+}
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-Bold.otf") format("opentype");
+  font-weight: 700; font-display: swap;
+}
+@font-face {
+  font-family: "TerminaTest";
+  src: url("/termina-test/TerminaTest-Black.otf") format("opentype");
+  font-weight: 900; font-display: swap;
+}
+
+/* ── Hero title line-height fix on mobile ────────────────── */
+/* The inline style sets lineHeight:88.2px (desktop Figma spec).
+   On mobile the title wraps, creating a huge gap. !important
+   overrides inline styles on screens narrower than lg. */
+@media (max-width: 1023px) {
+  .hero-title-termina {
+    line-height: 1.15 !important;
+  }
+}
+
+/* ── Base ────────────────────────────────────────────────── */
+html, body, #root {
+  height: 100%;
+}
+body {
+  background-color: var(--color-pvc-cream);
+  color: var(--color-pvc-ink);
+  font-family: var(--font-sans), Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
