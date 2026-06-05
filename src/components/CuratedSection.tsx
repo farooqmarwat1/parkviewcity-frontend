@@ -1,6 +1,34 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 
+function CityLogo({ src, city }: { src: string; city: string }) {
+  const [failed, setFailed] = useState(false);
+  if (failed) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-1" style={{ width: "260px" }}>
+        <div className="flex items-center gap-2">
+          <img src="/blacklogo.png" alt="" className="h-7 w-auto object-contain" />
+          <span className="font-display text-[18px] font-bold tracking-[0.08em] leading-none">PARKVIEW CITY</span>
+        </div>
+        <div className="flex items-center gap-2 w-full px-1">
+          <span className="flex-1 h-px bg-pvc-ink/60" />
+          <span className="font-roboto text-[9px] font-light tracking-[0.28em] uppercase">{city}</span>
+          <span className="flex-1 h-px bg-pvc-ink/60" />
+        </div>
+      </div>
+    );
+  }
+  return (
+    <img
+      src={src}
+      alt={city}
+      className="w-[200px] sm:w-[260px] h-auto object-contain"
+      loading="eager"
+      onError={() => setFailed(true)}
+    />
+  );
+}
+
 // Masonry layout logic
 type Item = { tall: boolean };
 
@@ -101,13 +129,13 @@ export default function CuratedSection() {
             }}
           >
             {[...Array(3)].map((_, set) => (
-              <div key={set} className="flex items-center gap-24 px-12">
-                <img src="/PVIsb.png" alt="Islamabad" className="h-16 sm:h-20 w-auto object-contain" loading="eager" />
-                <img src="/PVLahore.png" alt="Lahore" className="h-16 sm:h-20 w-auto object-contain" loading="eager" />
-                <img src="/PVrawalpindi.png" alt="Rawalpindi" className="h-16 sm:h-20 w-auto object-contain" loading="eager" />
-                <img src="/PVIsb.png" alt="Islamabad" className="h-16 sm:h-20 w-auto object-contain" loading="eager" />
-                <img src="/PVLahore.png" alt="Lahore" className="h-16 sm:h-20 w-auto object-contain" loading="eager" />
-                <img src="/PVrawalpindi.png" alt="Rawalpindi" className="h-16 sm:h-20 w-auto object-contain" loading="eager" />
+              <div key={set} className="flex items-center gap-20 px-10">
+                <CityLogo src="/PVIsb.png" city="Islamabad" />
+                <CityLogo src="/PVLahore.png" city="Lahore" />
+                <CityLogo src="/PVrawalpindi.png" city="Rawalpindi" />
+                <CityLogo src="/PVIsb.png" city="Islamabad" />
+                <CityLogo src="/PVLahore.png" city="Lahore" />
+                <CityLogo src="/PVrawalpindi.png" city="Rawalpindi" />
               </div>
             ))}
           </div>

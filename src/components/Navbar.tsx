@@ -17,7 +17,7 @@ export default function Navbar() {
   }, []);
 
   const linkClass = [
-    "group relative pb-1 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer font-roboto whitespace-nowrap",
+    "group relative pb-1 text-[11px] font-light uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer font-roboto whitespace-nowrap",
     solid ? "text-pvc-ink/75 hover:text-pvc-green" : "text-white/85 hover:text-white",
   ].join(" ");
 
@@ -60,7 +60,7 @@ export default function Navbar() {
         <div className="flex flex-1 justify-end">
           <a href="#"
             className={[
-              "flex items-center gap-2 rounded-full border px-5 py-2 text-[10px] font-medium uppercase tracking-[0.18em] transition-all duration-300 cursor-pointer font-roboto whitespace-nowrap",
+              "flex items-center gap-2 rounded-full border px-5 py-2 text-[10px] font-light uppercase tracking-[0.18em] transition-all duration-300 cursor-pointer font-roboto whitespace-nowrap",
               solid
                 ? "border-pvc-ink/25 text-pvc-ink/60 hover:border-pvc-gold hover:text-pvc-gold"
                 : "border-white/40 text-white/60 hover:border-pvc-gold hover:text-pvc-gold",
@@ -95,13 +95,13 @@ export default function Navbar() {
           <nav className="flex flex-col divide-y divide-gray-100 px-6 py-2">
             {allLinks.map(link => (
               <a key={link} href="#"
-                className="flex items-center py-4 text-sm font-medium uppercase tracking-[0.18em] text-pvc-ink/75 transition-colors duration-200 hover:text-pvc-green font-roboto cursor-pointer"
+                className="flex items-center py-4 text-sm font-light uppercase tracking-[0.18em] text-pvc-ink/75 transition-colors duration-200 hover:text-pvc-green font-roboto cursor-pointer"
                 onClick={() => setOpen(false)}>
                 {link}
               </a>
             ))}
             <a href="#"
-              className="flex items-center gap-2 py-4 text-sm font-medium uppercase tracking-[0.18em] text-pvc-gold transition-colors duration-200 hover:text-pvc-green font-roboto cursor-pointer"
+              className="flex items-center gap-2 py-4 text-sm font-light uppercase tracking-[0.18em] text-pvc-gold transition-colors duration-200 hover:text-pvc-green font-roboto cursor-pointer"
               onClick={() => setOpen(false)}>
               <Phone className="h-4 w-4" />
               Enquire Now
