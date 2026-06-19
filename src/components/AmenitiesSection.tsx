@@ -36,7 +36,7 @@ function getBorderClasses(i: number) {
 
 export default function AmenitiesSection() {
   return (
-    <section className="bg-white pt-6 pb-20 sm:pt-8 sm:pb-28">
+    <section className="bg-white pt-6 pb-10 sm:pt-8 sm:pb-14">
       <div className="mx-auto max-w-[1400px] px-6 sm:px-10">
 
         {/* Header */}

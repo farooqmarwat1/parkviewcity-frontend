@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -11,17 +12,20 @@ const projects = [
     image: "/ProjectLahore.png",
     title: "PARKVIEW CITY LAHORE",
     subtitle: "A Place to Call Home",
+    href: "/lahore",
   },
   {
     image: "/ProjectIslamabad.png",
     title: "PARKVIEW CITY ISLAMABAD",
     subtitle: "A Dream Place to Live In",
+    href: "/islamabad",
   },
 ];
 
 export default function ProjectsSection() {
+  const navigate = useNavigate();
   return (
-    <section className="bg-white py-20 sm:py-28">
+    <section id="projects" className="bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-[1100px] px-6 sm:px-10">
 
         {/* Heading */}
@@ -64,10 +68,12 @@ export default function ProjectsSection() {
                 <h3 className="font-termina text-2xl font-normal text-pvc-navy">{p.title}</h3>
                 <p className="font-roboto text-[11px] font-normal leading-[16.5px] tracking-[3.3px] uppercase text-pvc-ink/50">{p.subtitle}</p>
                 <div className="mt-4">
-                  <a href="#"
+                  <button
+                    type="button"
+                    onClick={() => navigate(p.href)}
                     className="inline-block rounded-full border border-pvc-ink/25 px-12 py-3 font-roboto text-[10px] uppercase tracking-[0.32em] text-pvc-ink/60 transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer">
                     Explore
-                  </a>
+                  </button>
                 </div>
               </div>
             </motion.div>

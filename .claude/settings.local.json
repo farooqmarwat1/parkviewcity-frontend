@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(node -e \"const p=require\\('./node_modules/react-router-dom/package.json'\\); const exp=Object.keys\\(p.exports||{}\\).slice\\(0,10\\); console.log\\(exp\\)\")",
+      "Bash(node -e \"const rrd=require\\('C:/Users/Aahan Imran/Desktop/MIMAR PROJECTS/Parkview/parkview-react/node_modules/react-router-dom/dist/index.js'\\); console.log\\(Object.keys\\(rrd\\).filter\\(k=>['BrowserRouter','Routes','Route','useNavigate','useLocation'].includes\\(k\\)\\)\\)\")",
+      "Bash(npm run *)",
+      "Bash(npx tsc *)"
+    ]
+  }
+}

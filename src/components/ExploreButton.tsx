@@ -5,11 +5,19 @@ export default function ExploreButton({
 }: {
   label?:   string;
   href?:    string;
-  variant?: "outline" | "solid" | "stats" | "light";
+  variant?: "outline" | "solid" | "stats" | "light" | "gold";
 }) {
   if (variant === "light") {
     return (
       <a href={href} className="inline-block rounded-full border border-pvc-ink/25 px-12 py-3 font-roboto text-[10px] uppercase tracking-[0.32em] text-pvc-ink/60 transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer">
+        {label}
+      </a>
+    );
+  }
+
+  if (variant === "gold") {
+    return (
+      <a href={href} className="inline-block rounded-full border border-pvc-gold px-12 py-3 font-roboto text-[10px] uppercase tracking-[0.32em] text-pvc-gold transition-all duration-300 hover:bg-pvc-gold hover:text-white cursor-pointer">
         {label}
       </a>
     );

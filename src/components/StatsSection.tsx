@@ -75,15 +75,6 @@ export default function StatsSection() {
 
   return (
     <section className="relative overflow-hidden bg-white pt-28 pb-10 sm:pt-40 sm:pb-12">
-      <style dangerouslySetInnerHTML={{ __html: `
-        @font-face {
-          font-family: 'Optima';
-          src: url('/optima-bold.woff2') format('woff2'),
-               url('/optima-bold.woff') format('woff');
-          font-weight: bold;
-          font-style: normal;
-        }
-      `}} />
 
       <div className="relative mx-auto max-w-[1000px] px-6 sm:px-10 flex flex-col items-center">
 
@@ -95,12 +86,13 @@ export default function StatsSection() {
           
           <span
             className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none leading-none"
-            style={{ 
-              fontFamily: 'Optima, sans-serif',
+            style={{
+              fontFamily: 'Roboto, sans-serif',
               fontWeight: 'bold',
-              fontSize: "clamp(200px, 22vw, 320px)", 
-              color: "#c9a24b", 
-              opacity: 0.1, 
+              fontSize: "clamp(200px, 22vw, 320px)",
+              color: "#c9a24b",
+              opacity: 0.1,
+              letterSpacing: "0.9px",
             }}
             aria-hidden="true"
           >P</span>
@@ -116,8 +108,8 @@ export default function StatsSection() {
           variants={fadeUp} initial="hidden" whileInView="show"
           viewport={{ once: true, amount: 0.5 }}
           className="mt-10 font-roboto uppercase tracking-[0.34em]"
-          style={{ fontSize: "11px", color: blueColor }}>
-          Parkview City at a Glance
+          style={{ fontSize: "11px", color: "#58595B" }}>
+          PARKVIEW CITY ISLAMABAD
         </motion.p>
 
         {/* Row 1 */}
@@ -130,8 +122,8 @@ export default function StatsSection() {
           variants={fadeUp} initial="hidden" whileInView="show"
           viewport={{ once: true, amount: 0.4 }}
           className="mt-16 font-roboto uppercase tracking-[0.34em]"
-          style={{ fontSize: "11px", color: blueColor }}>
-          Expanding Communities
+          style={{ fontSize: "11px", color: "#58595B" }}>
+          PARKVIEW CITY LAHORE
         </motion.p>
 
         {/* Row 2 */}

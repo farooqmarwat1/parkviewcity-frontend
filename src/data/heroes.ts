@@ -30,7 +30,7 @@ export const heroes: Hero[] = [
   {
     id: "paradise",
     variant: "eyebrow",
-    video: "/First%20Section.mp4",
+    video: "/Fountain-Animation.webm",
     tint: "dark",
     title: "Where Lifestyle Meets Luxury",
     titleFont: "termina",

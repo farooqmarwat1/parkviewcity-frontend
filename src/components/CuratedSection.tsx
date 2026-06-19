@@ -39,11 +39,20 @@ const columns: Item[][] = [
   [{ tall: true }, { tall: false }, { tall: true }, { tall: false }, { tall: true }],
 ];
 
+const galleryImages = [
+  // col 0 (left)
+  "/row1col1.png", "/row2col1.png", "/row3col1.png", "/row4col1.png", "/5.png",
+  // col 1 (middle)
+  "/row1col2.png", "/row2col2.png", "/row3col2.png", "/row4col2.png", "/10.png",
+  // col 2 (right)
+  "/row1col3.png", "/row2col3.png", "/row3col3.png", "/row4col3.png", "/row5col3.png",
+];
+
 const imageTitles = [
-  "The Walk", "Overseas Block", "Downtown Residency", "Golf Estate",
-  "The Lake District", "Sky Residency", "Commercial Broadway", "Hill View",
-  "Botanical Garden", "Silver City", "Crystal Lake", "The Boulevard",
-  "Central Park", "Sunset Point", "Grand Mosque", "Community Hub"
+  "The Walk", "Overseas Premium", "Downtown Islamabad", "ParkView City Lahore",
+  "The Lake District", "Rose Market", "J Block Privilege", "ParkView City Islamabad",
+  "Downtown Housing Block", "Crystal Block", "ParkView City Islamabad", "The Walk",
+  "Rose Market", "J Block Privilege", "Downtown Islamabad", "ParkView City Lahore"
 ];
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -81,7 +90,7 @@ export default function CuratedSection() {
 
   return (
     // Moderate mobile negative margin: reduces gap without cutting images
-    <section className="relative bg-white pt-16 sm:pt-32 pb-[150px] sm:pb-[500px] -mb-[60px] sm:-mb-[660px] overflow-hidden">
+    <section id="gallery" className="relative bg-white pt-16 sm:pt-32 pb-[150px] sm:pb-[500px] -mb-[60px] sm:-mb-[660px] overflow-hidden">
       <style dangerouslySetInnerHTML={{ __html: `
             @keyframes marquee {
                 0% { transform: translateX(0); }
@@ -100,7 +109,7 @@ export default function CuratedSection() {
         className="relative z-10 mx-auto flex flex-col items-center justify-center text-center px-6"
       >
         <p
-          className="font-termina font-medium uppercase tracking-[0.1em] text-[24px] sm:text-[32px] lg:text-[40px] max-w-5xl"
+          className="font-termina font-normal uppercase tracking-[0.1em] text-[24px] sm:text-[32px] lg:text-[40px] max-w-5xl"
           style={{ color: "#1D2D4E" }}
         >
           A New Realm of Curated Collaborations
@@ -168,7 +177,7 @@ export default function CuratedSection() {
                   >
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-[1200ms] ease-out group-hover:scale-105"
-                      style={{ backgroundImage: `url('/${imageNumber}.png')` }}
+                      style={{ backgroundImage: `url('${galleryImages[imageIndex]}')` }}
                     />
                     <figcaption className="absolute inset-x-0 bottom-0 z-10 p-4 pt-10 bg-gradient-to-t from-black/60 to-transparent">
                       <p className="text-white text-[11px] sm:text-[13px] uppercase tracking-wider font-medium" style={{ fontFamily: "'TerminaTest', 'Barlow', sans-serif" }}>
