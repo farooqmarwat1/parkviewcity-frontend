@@ -1,16 +1,8 @@
-import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Check,
-  ChevronLeft,
-  ChevronRight,
-  X,
-} from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import {
   amenitiesCtaImage,
-  amenitiesGallery,
   amenitiesHeroImage,
   featuredAmenities,
   officialMainAmenities,
@@ -67,35 +59,12 @@ function SectionHeading({
 
 export default function LahoreAmenitiesPage() {
   const navigate = useNavigate();
-  const [lightboxIdx, setLightboxIdx] = useState<number | null>(null);
-  const galleryLen = amenitiesGallery.length;
-
-  useEffect(() => {
-    if (lightboxIdx === null) return;
-
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape") setLightboxIdx(null);
-      if (e.key === "ArrowLeft") setLightboxIdx(i => ((i ?? 0) - 1 + galleryLen) % galleryLen);
-      if (e.key === "ArrowRight") setLightboxIdx(i => ((i ?? 0) + 1) % galleryLen);
-    }
-
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [lightboxIdx, galleryLen]);
-
-  function prevImage() {
-    setLightboxIdx(i => ((i ?? 0) - 1 + galleryLen) % galleryLen);
-  }
-
-  function nextImage() {
-    setLightboxIdx(i => ((i ?? 0) + 1) % galleryLen);
-  }
 
   return (
     <div className="overflow-x-hidden bg-white">
       <section
         id="amenities-hero"
-        className="figma-hero flex min-h-screen w-full items-center justify-center px-6 text-center sm:px-10"
+        className="figma-hero flex min-h-screen w-full items-end justify-center px-6 pb-[6vh] text-center sm:px-10"
         style={{ minHeight: "100svh" }}
       >
         <img
@@ -110,25 +79,19 @@ export default function LahoreAmenitiesPage() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: easeOut }}
-          className="figma-hero-content mx-auto flex max-w-[980px] flex-col items-center"
+          className="figma-hero-content mx-auto flex max-w-[900px] flex-col items-center min-[1200px]:max-w-[1400px]"
         >
-          <span className="font-roboto text-[10px] font-light uppercase tracking-[0.34em] text-[#C4973A] sm:text-[11px]">
-            Lifestyle & Convenience
-          </span>
-
-          <h1 className="interior-hero-title mt-4">
+          <h1
+            className="max-w-[90vw] text-center text-white font-termina hero-title-termina uppercase min-[1200px]:max-w-none min-[1200px]:whitespace-nowrap"
+            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "88.2px", letterSpacing: "0px" }}
+          >
             Amenities of ParkView City Lahore
           </h1>
 
-          <p className="mx-auto mt-6 max-w-[760px] font-roboto text-[15px] font-light leading-[28px] text-white/76 sm:text-[17px]">
-            Discover the infrastructure, green spaces, education, security, recreation, and everyday conveniences
-            designed to support modern community living at ParkView City Lahore.
-          </p>
-
           <button
             type="button"
-            onClick={() => scrollToSection("#amenities-overview")}
-            className="mt-9 flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/50 bg-white/10 px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:border-[#C4973A] hover:text-[#C4973A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            onClick={() => scrollToSection("#amenities-grid")}
+            className="mt-7 flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/50 bg-white/10 px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:border-[#C4973A] hover:text-[#C4973A] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             Explore Amenities
             <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
@@ -137,18 +100,10 @@ export default function LahoreAmenitiesPage() {
       </section>
 
       <section
-        id="amenities-overview"
-        className="bg-white px-6 py-24 sm:px-10 sm:py-28 lg:px-20"
+        id="amenities-grid"
+        className="bg-white px-6 py-20 sm:px-10 sm:py-24 lg:px-20"
         style={{ scrollMarginTop: "90px" }}
       >
-        <SectionHeading
-          eyebrow="Everything Within Reach"
-          title="Designed for Everyday Living"
-          description="ParkView City Lahore brings essential services, modern infrastructure, landscaped surroundings, education, recreation, and security together within one thoughtfully planned community."
-        />
-      </section>
-
-      <section id="amenities-grid" className="bg-white px-6 py-20 sm:px-10 sm:py-24 lg:px-20">
         <div className="mx-auto max-w-[1280px]">
           <SectionHeading
             eyebrow="Lifestyle Essentials"
@@ -272,41 +227,6 @@ export default function LahoreAmenitiesPage() {
         </div>
       </section>
 
-      <section id="amenities-gallery" className="bg-white px-6 py-20 sm:px-10 sm:py-28 lg:px-20">
-        <div className="mx-auto max-w-[1280px]">
-          <SectionHeading
-            eyebrow="Experience the Lifestyle"
-            title="A Community Designed to Be Enjoyed"
-            description="Explore the landscapes, facilities, learning spaces, recreation, infrastructure, and community environments of ParkView City Lahore."
-            align="left"
-          />
-
-          <div className="mt-12 grid grid-cols-1 gap-2.5 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-[250px_250px_240px]">
-            {amenitiesGallery.map((image, index) => (
-              <button
-                key={image.src}
-                type="button"
-                aria-label={`Open gallery image ${index + 1}`}
-                onClick={() => setLightboxIdx(index)}
-                className={[
-                  "group relative min-h-[240px] overflow-hidden rounded-[16px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#C4973A]",
-                  index === 0 ? "lg:col-span-2 lg:row-span-2" : "",
-                  index === 1 || index === 2 ? "lg:col-span-2" : "",
-                ].join(" ")}
-              >
-                <img
-                  src={image.src}
-                  alt={image.alt}
-                  className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                  draggable={false}
-                />
-                <span className="absolute inset-0 bg-black/0 transition-colors duration-300 group-hover:bg-black/25" />
-              </button>
-            ))}
-          </div>
-        </div>
-      </section>
-
       <section
         id="amenities-cta"
         className="relative flex min-h-[520px] items-center justify-center overflow-hidden px-6 py-24 text-center sm:px-10 lg:px-20"
@@ -355,56 +275,6 @@ export default function LahoreAmenitiesPage() {
           </div>
         </motion.div>
       </section>
-
-      {lightboxIdx !== null && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label="Amenities gallery lightbox"
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/92 px-4"
-          onClick={e => {
-            if (e.target === e.currentTarget) setLightboxIdx(null);
-          }}
-        >
-          <button
-            type="button"
-            aria-label="Close lightbox"
-            onClick={() => setLightboxIdx(null)}
-            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white transition-all hover:bg-white/28 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
-          >
-            <X className="h-5 w-5" strokeWidth={2} />
-          </button>
-
-          <p className="absolute left-1/2 top-5 -translate-x-1/2 select-none font-roboto text-[12px] text-white/65">
-            {lightboxIdx + 1} / {galleryLen}
-          </p>
-
-          <button
-            type="button"
-            aria-label="Previous image"
-            onClick={prevImage}
-            className="absolute left-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white transition-all hover:bg-white/28 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:left-6"
-          >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2} />
-          </button>
-
-          <img
-            src={amenitiesGallery[lightboxIdx].src}
-            alt={amenitiesGallery[lightboxIdx].alt}
-            className="max-h-[85vh] max-w-[85vw] object-contain"
-            draggable={false}
-          />
-
-          <button
-            type="button"
-            aria-label="Next image"
-            onClick={nextImage}
-            className="absolute right-3 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/30 bg-white/15 text-white transition-all hover:bg-white/28 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white sm:right-6"
-          >
-            <ChevronRight className="h-5 w-5" strokeWidth={2} />
-          </button>
-        </div>
-      )}
     </div>
   );
 }
