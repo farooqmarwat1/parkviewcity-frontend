@@ -36,12 +36,7 @@ export interface SupportingAmenity {
   icon: AmenityIcon;
 }
 
-export interface GalleryImage {
-  src: string;
-  alt: string;
-}
-
-export const amenitiesHeroImage = "/hero video image.webp";
+export const amenitiesHeroImage = "/Lahore-Ameneties_Hero.webp";
 export const amenitiesCtaImage = "/VirtualTourSection.webp";
 
 export const officialMainAmenities: AmenitySummary[] = [
@@ -107,7 +102,7 @@ export const featuredAmenities: FeaturedAmenity[] = [
       "Access to major destinations",
       "Connected residential community",
     ],
-    image: "/ProjectLahore.png",
+    image: "/LAHORE-first_Section.webp",
     imageAlt: "ParkView City Lahore access and community view",
   },
   {
@@ -121,7 +116,7 @@ export const featuredAmenities: FeaturedAmenity[] = [
       "Protected utility network",
       "Modern community infrastructure",
     ],
-    image: "/Tulip-Overseas-Block-HERO.webp",
+    image: "/LAHORE-PROJECT2.webp",
     imageAlt: "Modern infrastructure at ParkView City Lahore",
   },
   {
@@ -149,7 +144,7 @@ export const featuredAmenities: FeaturedAmenity[] = [
       "Trained security personnel",
       "Community monitoring",
     ],
-    image: "/Crystal Block hero.webp",
+    image: "/LAHORE-Last_Section.webp",
     imageAlt: "Secure residential community entrance at ParkView City Lahore",
   },
   {
@@ -224,37 +219,5 @@ export const supportingAmenities: SupportingAmenity[] = [
     title: "Family and Play Areas",
     description: "Family-oriented spaces create opportunities for play, relaxation, and social interaction.",
     icon: "users",
-  },
-];
-
-// Temporary gallery images. Replace these paths when final Lahore amenities photography is available.
-export const amenitiesGallery: GalleryImage[] = [
-  {
-    src: "/hero video image.webp",
-    alt: "Aerial view of ParkView City Lahore",
-  },
-  {
-    src: "/A Place to call home.webp",
-    alt: "Residential landscape at ParkView City Lahore",
-  },
-  {
-    src: "/VirtualTourSection.webp",
-    alt: "ParkView City Lahore community view",
-  },
-  {
-    src: "/Tulip-Overseas-Block-HERO.webp",
-    alt: "Tulip Overseas Block at ParkView City Lahore",
-  },
-  {
-    src: "/Crystal Block hero.webp",
-    alt: "Crystal Block at ParkView City Lahore",
-  },
-  {
-    src: "/JADE Extension hero.webp",
-    alt: "JADE Extension at ParkView City Lahore",
-  },
-  {
-    src: "/Rose Market hero.webp",
-    alt: "Rose Market at ParkView City Lahore",
   },
 ];
