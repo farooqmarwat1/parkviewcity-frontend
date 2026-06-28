@@ -3,6 +3,7 @@ import type { LahorePaymentPlan } from "@/data/lahorePaymentPlans";
 
 interface Props {
   plan: LahorePaymentPlan;
+  showTitle?: boolean;
 }
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -11,7 +12,7 @@ const fadeUp = {
   show:   { opacity: 1, y: 0, transition: { duration: 0.6, ease: easeOut } },
 };
 
-export default function LahorePaymentPlanTable({ plan }: Props) {
+export default function LahorePaymentPlanTable({ plan, showTitle = true }: Props) {
   const isResidential = plan.category === "Residential";
   const isWide = plan.tableColumns.length >= 4;
 
@@ -38,10 +39,17 @@ export default function LahorePaymentPlanTable({ plan }: Props) {
           >
             {plan.category}
           </span>
-          <h3 className="mt-1 font-termina text-[16px] font-normal uppercase leading-tight tracking-[0.04em] text-[#1D2D4E] sm:text-[18px]">
-            {plan.title}
-          </h3>
-          <p className="mt-0.5 font-roboto text-[11px] font-light text-[#58595B]/80">
+          {showTitle && (
+            <h3 className="mt-1 font-termina text-[16px] font-normal uppercase leading-tight tracking-[0.04em] text-[#1D2D4E] sm:text-[18px]">
+              {plan.title}
+            </h3>
+          )}
+          <p
+            className={[
+              "font-roboto font-light text-[#58595B]/80",
+              showTitle ? "mt-0.5 text-[11px]" : "mt-1.5 text-[13px]",
+            ].join(" ")}
+          >
             {plan.planType}
           </p>
         </div>

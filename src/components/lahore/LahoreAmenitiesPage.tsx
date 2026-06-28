@@ -1,8 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Check } from "lucide-react";
 import {
-  amenitiesCtaImage,
   amenitiesHeroImage,
   featuredAmenities,
   officialMainAmenities,
@@ -58,8 +56,6 @@ function SectionHeading({
 }
 
 export default function LahoreAmenitiesPage() {
-  const navigate = useNavigate();
-
   return (
     <div className="overflow-x-hidden bg-white">
       <section
@@ -227,54 +223,6 @@ export default function LahoreAmenitiesPage() {
         </div>
       </section>
 
-      <section
-        id="amenities-cta"
-        className="relative flex min-h-[520px] items-center justify-center overflow-hidden px-6 py-24 text-center sm:px-10 lg:px-20"
-      >
-        <img
-          src={amenitiesCtaImage}
-          alt="ParkView City Lahore lifestyle and community view"
-          className="absolute inset-0 h-full w-full object-cover object-center"
-          draggable={false}
-        />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.42) 0%, rgba(0,0,0,0.60) 55%, rgba(0,0,0,0.82) 100%)" }} />
-
-        <motion.div
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp}
-          className="relative z-10 mx-auto flex max-w-[760px] flex-col items-center"
-        >
-          <span className="font-roboto text-[10px] font-normal uppercase tracking-[0.32em] text-[#C4973A]">
-            Discover ParkView City Lahore
-          </span>
-          <h2 className="mt-4 font-termina text-[28px] font-normal uppercase leading-tight tracking-[0.06em] text-white sm:text-[42px]">
-            Find a Home Surrounded by More
-          </h2>
-          <p className="mt-5 font-roboto text-[15px] font-light leading-[27px] text-white/72">
-            Explore available properties, review payment plans, or speak with our team to learn more about life at ParkView City Lahore.
-          </p>
-
-          <div className="mt-8 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
-            <button
-              type="button"
-              onClick={() => navigate("/lahore#properties")}
-              className="flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-[#C4973A] bg-[#C4973A] px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-white hover:text-[#1D2D4E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
-            >
-              Explore Properties
-              <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("/contact#contact-form")}
-              className="flex min-h-11 w-full items-center justify-center rounded-full border border-white/45 bg-white/10 px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#1D2D4E] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white sm:w-auto"
-            >
-              Contact Us
-            </button>
-          </div>
-        </motion.div>
-      </section>
     </div>
   );
 }

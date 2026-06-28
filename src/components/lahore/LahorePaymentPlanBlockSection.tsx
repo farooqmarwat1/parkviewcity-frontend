@@ -33,7 +33,11 @@ export default function LahorePaymentPlanBlockSection({ id, heading, plans }: Pr
         {/* Table panels */}
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 items-stretch">
           {plans.map(plan => (
-            <LahorePaymentPlanTable key={plan.slug} plan={plan} />
+            <LahorePaymentPlanTable
+              key={plan.slug}
+              plan={plan}
+              showTitle={plan.title.trim().toLowerCase() !== heading.trim().toLowerCase()}
+            />
           ))}
         </div>
       </div>

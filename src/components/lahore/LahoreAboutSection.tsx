@@ -16,7 +16,7 @@ export default function LahoreAboutSection() {
     <section
       id="about"
       className="bg-white px-6 py-20 sm:px-10 sm:py-28 lg:px-20"
-      style={{ scrollMarginTop: "100px" }}
+      style={{ scrollMarginTop: "0px" }}
     >
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
 

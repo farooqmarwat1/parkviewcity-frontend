@@ -334,7 +334,7 @@ export default function ContactPage() {
         >
           <motion.h1 variants={fadeUp}
             className="max-w-[90vw] text-center font-termina hero-title-termina uppercase text-white"
-            style={{ fontSize: "40px", fontWeight: 500, lineHeight: "48px", letterSpacing: "0px" }}
+            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "32px", letterSpacing: "0px" }}
           >
             Contact Us
           </motion.h1>

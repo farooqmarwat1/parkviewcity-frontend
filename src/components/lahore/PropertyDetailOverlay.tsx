@@ -403,9 +403,9 @@ export default function PropertyDetailOverlay({ data, onClose, onEnquire, onPaym
               type="button"
               onClick={onEnquire}
               className="flex h-[48px] items-center justify-center rounded-full
-                         border border-[#C4973A] bg-white px-8 font-roboto text-[11px] uppercase
-                         tracking-[0.22em] text-[#C4973A] transition-all duration-300
-                         hover:bg-[#C4973A]/8 focus-visible:outline focus-visible:outline-2
+                         border border-black/15 bg-white px-8 font-roboto text-[11px] uppercase
+                         tracking-[0.22em] text-[#58595B] transition-all duration-300
+                         hover:border-[#C4973A] hover:bg-[#C4973A]/8 hover:text-[#C4973A] focus-visible:outline focus-visible:outline-2
                          focus-visible:outline-[#C4973A] cursor-pointer sm:min-w-[180px]"
             >
               Enquire Now
@@ -414,9 +414,9 @@ export default function PropertyDetailOverlay({ data, onClose, onEnquire, onPaym
               type="button"
               onClick={onEnquire}
               className="flex h-[48px] items-center justify-center rounded-full border
-                         border-[#C4973A] bg-white px-8 font-roboto text-[11px] uppercase
-                         tracking-[0.22em] text-[#C4973A] transition-all duration-300
-                         hover:bg-[#C4973A]/8 focus-visible:outline focus-visible:outline-2
+                         border-black/15 bg-white px-8 font-roboto text-[11px] uppercase
+                         tracking-[0.22em] text-[#58595B] transition-all duration-300
+                         hover:border-[#C4973A] hover:bg-[#C4973A]/8 hover:text-[#C4973A] focus-visible:outline focus-visible:outline-2
                          focus-visible:outline-[#C4973A] cursor-pointer sm:min-w-[180px]"
             >
               Schedule a Call
