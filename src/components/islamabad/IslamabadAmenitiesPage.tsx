@@ -101,11 +101,11 @@ export default function IslamabadAmenitiesPage() {
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: easeOut }}
-          className="absolute inset-0 z-[2] flex flex-col items-center justify-end px-6 pb-[3vh] text-center"
+          className="absolute inset-0 z-[2] flex flex-col items-center justify-end px-6 pb-[6vh] text-center"
         >
           <h1
             className="max-w-[90vw] text-center text-white font-termina hero-title-termina uppercase"
-            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "88.2px", letterSpacing: "0px" }}
+            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "32px", letterSpacing: "0px" }}
           >
             Amenities of ParkView City Islamabad
           </h1>

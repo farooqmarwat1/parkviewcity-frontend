@@ -1,9 +1,8 @@
 import { useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import {
   Phone, Mail, MapPin, Send, CheckCircle,
-  AlertCircle, ChevronDown, ArrowRight, ExternalLink,
+  AlertCircle, ChevronDown, ExternalLink,
 } from "lucide-react";
 import {
   officeRecords, PRIMARY_OFFICE_IDS, MAP_OFFICE_IDS,
@@ -87,11 +86,11 @@ function mapOpenUrl(query: string) {
 }
 
 /* ── Primary office card (left column) ──────────────────────── */
-function PrimaryOfficeCard({ office }: { office: OfficeRecord }) {
+function PrimaryOfficeCard({ office, onViewOnMap }: { office: OfficeRecord; onViewOnMap?: (office: OfficeRecord) => void }) {
   return (
     <motion.div
       variants={fadeUp}
-      className="flex items-start gap-4 rounded-[15px] border border-gray-100 bg-[#FAFAFA] p-5 hover:border-pvc-gold/40 transition-colors duration-300"
+      className="flex items-start gap-4 rounded-[15px] border border-gray-100 bg-[#FAFAFA] p-5 transition-colors duration-300 hover:border-pvc-gold/40"
     >
       <IconBadge>
         <MapPin className="h-4 w-4 text-pvc-gold" strokeWidth={1.5} />
@@ -142,6 +141,16 @@ function PrimaryOfficeCard({ office }: { office: OfficeRecord }) {
             </a>
           )}
         </div>
+        {office.mapQuery && (
+          <button
+            type="button"
+            onClick={() => onViewOnMap?.(office)}
+            className="mt-2 flex items-center gap-1.5 font-roboto text-[10px] uppercase tracking-[0.2em] text-pvc-gold hover:underline cursor-pointer"
+          >
+            <ExternalLink className="h-3 w-3" strokeWidth={1.5} />
+            View on Map
+          </button>
+        )}
       </div>
     </motion.div>
   );
@@ -214,7 +223,6 @@ function AdditionalOfficeCard({ office }: { office: OfficeRecord }) {
 
 /* ── ContactPage ─────────────────────────────────────────────── */
 export default function ContactPage() {
-  const navigate = useNavigate();
 
   /* Form state */
   const [fields, setFields] = useState({
@@ -228,6 +236,15 @@ export default function ContactPage() {
   const [activeMapId, setActiveMapId] = useState("islamabad-corporate-office");
   const activeMapOffice = getOffice(activeMapId)!;
   const mapOffices      = MAP_OFFICE_IDS.map(id => getOffice(id)!);
+
+  function handleViewOnMap(office: OfficeRecord) {
+    if (MAP_OFFICE_IDS.includes(office.id)) {
+      setActiveMapId(office.id);
+      document.getElementById("locations")?.scrollIntoView({ behavior: "smooth" });
+    } else if (office.mapQuery) {
+      window.open(mapOpenUrl(office.mapQuery), "_blank", "noopener,noreferrer");
+    }
+  }
 
   function update(key: string, value: string | boolean) {
     setFields(f => ({ ...f, [key]: value }));
@@ -299,38 +316,28 @@ export default function ContactPage() {
           1 ▸ HERO
       ═══════════════════════════════════════════════════════ */}
       <section
-        className="figma-hero flex min-h-screen items-center justify-center"
+        className="relative min-h-screen w-full overflow-hidden"
         style={{ minHeight: "100svh" }}
         aria-label="Contact Us hero"
       >
         <img
-          src="/ProjectIslamabad.png"
+          src="/contactushero.png"
           alt="ParkView City Islamabad aerial view"
           className="absolute inset-0 h-full w-full object-cover object-center animate-kenburns"
           draggable={false}
         />
-        <div className="figma-hero-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-black/80" />
 
         <motion.div
           variants={stagger} initial="hidden" animate="show"
-          className="figma-hero-content mx-auto flex max-w-[900px] flex-col items-center px-6 text-center pt-[75px]"
+          className="absolute inset-0 z-10 flex flex-col items-center justify-end px-6 pb-[14vh] text-center"
         >
-          <motion.p variants={fadeUp}
-            className="mb-5 font-roboto text-[11px] font-light uppercase tracking-[0.35em] text-pvc-gold"
-          >
-            GET IN TOUCH
-          </motion.p>
           <motion.h1 variants={fadeUp}
-            className="interior-hero-title"
+            className="max-w-[90vw] text-center font-termina hero-title-termina uppercase text-white"
+            style={{ fontSize: "40px", fontWeight: 500, lineHeight: "48px", letterSpacing: "0px" }}
           >
-            CONTACT US
+            Contact Us
           </motion.h1>
-          <motion.p variants={fadeUp}
-            className="mt-8 max-w-[600px] font-roboto text-[15px] font-light leading-[26px] tracking-[0.05em] text-white/75"
-          >
-            Connect with our team to learn more about ParkView City, our developments,
-            investment opportunities, and available properties.
-          </motion.p>
         </motion.div>
 
       </section>
@@ -371,9 +378,9 @@ export default function ContactPage() {
       {/* ═══════════════════════════════════════════════════════
           3 ▸ CONTACT INFO + FORM
       ═══════════════════════════════════════════════════════ */}
-      <section id="contact-form" className="bg-white pb-20 sm:pb-28">
+      <section id="contact-form" className="bg-white pb-10 sm:pb-12">
         <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
 
             {/* ── Left: Primary office cards ─────────────────── */}
             <motion.div
@@ -392,41 +399,10 @@ export default function ContactPage() {
 
               <motion.div variants={stagger} className="flex flex-col gap-4">
                 {primaryOffices.map(office => (
-                  <PrimaryOfficeCard key={office.id} office={office} />
+                  <PrimaryOfficeCard key={office.id} office={office} onViewOnMap={handleViewOnMap} />
                 ))}
               </motion.div>
 
-              {/* Quick-contact strip */}
-              <motion.div variants={fadeUp}
-                className="rounded-[15px] border border-pvc-gold/25 bg-white p-5"
-              >
-                <p className="mb-3 font-roboto text-[9px] font-light uppercase tracking-[0.28em] text-pvc-grey">
-                  Quick Contact
-                </p>
-                <div className="flex flex-col gap-2.5">
-                  <div className="flex items-center gap-3">
-                    <Phone className="h-3.5 w-3.5 shrink-0 text-pvc-gold" strokeWidth={1.5} />
-                    <a href="tel:+9251111249249"
-                      className="font-roboto text-[13px] font-normal text-pvc-navy hover:text-pvc-gold transition-colors duration-200">
-                      051 111 249 249 <span className="text-pvc-grey font-light">(Main UAN)</span>
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-3.5 w-3.5 shrink-0 text-pvc-gold" strokeWidth={1.5} />
-                    <a href="mailto:lahore@parkviewcity.com.pk"
-                      className="font-roboto text-[13px] font-normal text-pvc-navy hover:text-pvc-gold transition-colors duration-200 break-all">
-                      lahore@parkviewcity.com.pk
-                    </a>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="h-3.5 w-3.5 shrink-0 text-pvc-gold" strokeWidth={1.5} />
-                    <a href="mailto:islamabad@parkviewcity.com.pk"
-                      className="font-roboto text-[13px] font-normal text-pvc-navy hover:text-pvc-gold transition-colors duration-200 break-all">
-                      islamabad@parkviewcity.com.pk
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
             </motion.div>
 
             {/* ── Right: Enquiry form ───────────────────────── */}
@@ -624,7 +600,7 @@ export default function ContactPage() {
       {/* ═══════════════════════════════════════════════════════
           4 ▸ ADDITIONAL OFFICES
       ═══════════════════════════════════════════════════════ */}
-      <section id="all-offices" className="bg-white py-16 sm:py-20">
+      <section id="all-offices" className="bg-white pb-16 pt-10 sm:pb-20 sm:pt-12">
         <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
 
           <motion.div
@@ -852,29 +828,15 @@ export default function ContactPage() {
             >
               READY TO DISCOVER<br className="hidden sm:block" /> PARKVIEW CITY?
             </motion.h2>
-            <motion.p variants={fadeUp}
-              className="mt-7 font-roboto text-[15px] font-light leading-[26px] tracking-[0.04em] text-white/65"
-            >
-              Our consultants can guide you through residential plots, apartments,
-              commercial opportunities, payment plans, and available communities.
-            </motion.p>
             <motion.div variants={fadeUp}
-              className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+              className="mt-10 flex items-center justify-center"
             >
               <button
                 type="button"
                 onClick={scrollToForm}
-                className="flex h-[52px] min-w-[180px] items-center justify-center gap-2 rounded-[30px] bg-pvc-gold px-8 font-roboto text-[11px] uppercase tracking-[0.25em] text-white transition-all duration-300 hover:bg-pvc-gold/90 cursor-pointer"
+                className="inline-block rounded-full border border-white/30 bg-white/10 px-12 py-3 font-roboto text-[10px] uppercase tracking-[0.32em] text-white backdrop-blur-md transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer"
               >
-                ENQUIRE NOW
-              </button>
-              <button
-                type="button"
-                onClick={() => navigate("/#projects")}
-                className="flex h-[52px] min-w-[180px] items-center justify-center gap-2 rounded-[30px] border border-white/30 px-8 font-roboto text-[11px] uppercase tracking-[0.25em] text-white/70 transition-all duration-300 hover:border-white hover:text-white cursor-pointer"
-              >
-                EXPLORE PROJECTS
-                <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
+                Enquire Now
               </button>
             </motion.div>
           </motion.div>

@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { motion, type Variants } from "framer-motion";
 import {
-  ArrowRight, ChevronDown, Award, CheckCircle2,
+  ArrowRight, Award, CheckCircle2,
   Target, Heart, Lightbulb, Users, Leaf, TrendingUp,
 } from "lucide-react";
 import {
@@ -16,6 +16,7 @@ import {
   type ValueItem,
 } from "@/data/aboutData";
 import SharedEnquirySection from "@/components/SharedEnquirySection";
+import ExploreButton from "@/components/ExploreButton";
 
 /* ── Animation ───────────────────────────────────────────────── */
 const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -64,7 +65,7 @@ export default function AboutPage() {
       ═══════════════════════════════ */}
       <section
         id="about-hero"
-        className="figma-hero flex min-h-screen items-center justify-center"
+        className="relative min-h-screen w-full overflow-hidden"
         style={{ minHeight: "100svh" }}
         aria-label="About ParkView City hero"
       >
@@ -74,62 +75,25 @@ export default function AboutPage() {
           className="absolute inset-0 h-full w-full object-cover object-center"
           draggable={false}
         />
-        <div className="figma-hero-overlay" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/45 via-black/15 to-black/80" />
 
         <motion.div
           variants={stagger} initial="hidden" animate="show"
-          className="figma-hero-content mx-auto flex max-w-[920px] flex-col items-center px-6 pt-[75px] text-center"
+          className="absolute inset-0 z-10 flex flex-col items-center justify-end px-6 pb-[6vh] text-center"
         >
-          <motion.p variants={fadeUp}
-            className="mb-5 font-roboto text-[11px] font-light uppercase tracking-[0.38em] text-pvc-gold"
-          >
-            Building Communities. Creating Futures.
-          </motion.p>
-
           <motion.h1 variants={fadeUp}
-            className="interior-hero-title"
+            className="max-w-[90vw] text-center font-termina hero-title-termina uppercase text-white"
+            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "32px", letterSpacing: "0px" }}
           >
             About ParkView City
           </motion.h1>
 
-          <motion.p variants={fadeUp}
-            className="mt-7 max-w-[640px] font-roboto text-[15px] font-light leading-[27px] tracking-[0.03em] text-white/72"
-          >
-            ParkView City creates thoughtfully planned communities where modern
-            infrastructure, secure living, green environments, technology, and
-            long-term opportunity come together.
-          </motion.p>
-
-          <motion.div variants={fadeUp}
-            className="mt-10 flex flex-col items-center gap-4 sm:flex-row"
-          >
-            <button
-              type="button"
-              onClick={() => navigate("/#projects")}
-              className="flex h-[52px] min-w-[190px] items-center justify-center gap-2 rounded-full bg-pvc-gold px-8 font-roboto text-[11px] uppercase tracking-[0.25em] text-white transition-all duration-300 hover:bg-pvc-gold/85 cursor-pointer"
-            >
-              Explore Our Projects
-              <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.5} />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToSection("vision-mission")}
-              className="flex h-[52px] min-w-[190px] items-center justify-center gap-2 rounded-full border border-white/35 px-8 font-roboto text-[11px] uppercase tracking-[0.25em] text-white/80 transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer"
-            >
-              Our Vision
-            </button>
+          <motion.div variants={fadeUp} className="mt-7">
+            <span className="font-roboto">
+              <ExploreButton label="Explore Our Projects" variant="stats" href="/#projects" />
+            </span>
           </motion.div>
         </motion.div>
-
-        {/* Scroll indicator */}
-        <button
-          type="button"
-          onClick={() => scrollToSection("our-story")}
-          aria-label="Scroll to next section"
-          className="figma-hero-content absolute bottom-10 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1 cursor-pointer"
-        >
-          <ChevronDown className="h-6 w-6 animate-bounce text-white/50" strokeWidth={1} />
-        </button>
 
       </section>
 

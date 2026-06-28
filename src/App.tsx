@@ -129,8 +129,8 @@ function LahoreHomePage() {
       <LahoreAboutSection />
       <LahorePropertiesSection onOpenProperty={setSelectedProperty} />
       <LahoreAmenitiesPreviewSection />
-      <LahoreVirtualTourSection />
       <SharedEnquirySection id="lahore-enquiry" />
+      <LahoreVirtualTourSection />
 
       {activeDetail && (
         <PropertyDetailOverlay
@@ -188,8 +188,8 @@ function IslamabadHomePage() {
       <IslamabadAboutSection />
       <IslamabadPropertiesSection onOpenProperty={setSelectedProperty} />
       <IslamabadAmenitiesPreviewSection />
-      <IslamabadVirtualTourSection />
       <SharedEnquirySection id="islamabad-enquiry" />
+      <IslamabadVirtualTourSection />
 
       {activeDetail && (
         <PropertyDetailOverlay

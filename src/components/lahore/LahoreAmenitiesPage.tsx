@@ -83,7 +83,7 @@ export default function LahoreAmenitiesPage() {
         >
           <h1
             className="max-w-[90vw] text-center text-white font-termina hero-title-termina uppercase min-[1200px]:max-w-none min-[1200px]:whitespace-nowrap"
-            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "88.2px", letterSpacing: "0px" }}
+            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "32px", letterSpacing: "0px" }}
           >
             Amenities of ParkView City Lahore
           </h1>

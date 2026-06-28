@@ -1,20 +1,3 @@
-/**
- * Legacy shape — kept only so islamabadPaymentPlans.ts (which shares the
- * generic PaymentPlanFamilySection/PaymentPlanCard components) keeps compiling.
- * Lahore itself now uses LahorePaymentPlan below.
- */
-export interface PaymentPlan {
-  id: string;
-  city: string;
-  family: string;
-  category: "Residential" | "Commercial";
-  title: string;
-  details: string;
-  thumbnail: string | null;
-  pdfUrl: string | null;
-  status: "available" | "coming-soon";
-}
-
 export interface LahorePaymentPlan {
   /** Unique slug used for /lahore/payment-plans/:slug */
   slug: string;

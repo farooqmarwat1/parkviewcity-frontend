@@ -31,6 +31,11 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.8, ease: easeOut } },
 };
 
+function scrollTo(href: string) {
+  const el = document.querySelector(href);
+  if (el) el.scrollIntoView({ behavior: "smooth" });
+}
+
 function mapHref(address: string) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
 }
@@ -51,8 +56,8 @@ function OfficeCard({ office }: { office: UkOffice }) {
         {office.title}
       </h3>
       <p
-        className="mt-4 font-roboto text-[13px] font-light leading-[23px] text-[#58595B]"
-        style={{ letterSpacing: "0.4px" }}
+        className="mt-4 whitespace-nowrap font-roboto text-[11px] font-light leading-[23px] text-[#58595B]"
+        style={{ letterSpacing: "0px" }}
       >
         {office.address}
       </p>
@@ -118,22 +123,16 @@ export default function UkPage() {
           animate="show"
           className="absolute inset-0 z-10 flex flex-col items-center justify-end px-6 pb-[6vh] text-center"
         >
-          <motion.p
-            variants={item}
-            className="mb-3 font-roboto text-[11px] font-light uppercase tracking-[0.32em] text-pvc-gold-light"
-          >
-            ParkView City UK
-          </motion.p>
-
+  
           <motion.h1
             variants={item}
             className="max-w-[90vw] text-center font-termina hero-title-termina uppercase text-white"
-            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "88.2px", letterSpacing: "0px" }}
+            style={{ fontSize: "24px", fontWeight: 500, lineHeight: "32px", letterSpacing: "0px" }}
           >
             Your Gateway to Pakistan's Finest Developments
           </motion.h1>
 
-          <motion.div variants={item} className="mt-4">
+          <motion.div variants={item} className="mt-7">
             <span className="font-roboto">
               <ExploreButton label="Explore" variant="stats" href="#uk-about" />
             </span>
@@ -144,7 +143,7 @@ export default function UkPage() {
       {/* ── ABOUT ── matches LahoreAboutSection ── */}
       <section
         id="uk-about"
-        className="bg-white px-6 py-20 sm:px-10 sm:py-28 lg:px-20"
+        className="bg-white px-6 pb-20 pt-32 sm:px-10 sm:pb-28 sm:pt-40 lg:px-20"
         style={{ scrollMarginTop: "100px" }}
       >
         <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
@@ -178,20 +177,20 @@ export default function UkPage() {
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
-              <a
-                href={ukHero.primaryHref}
-                className="flex h-[43px] items-center justify-center rounded-full bg-[#C4973A] px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-[#C4973A]/90"
+              <button
+                type="button"
+                onClick={() => scrollTo("#uk-projects")}
+                className="flex h-[43px] items-center justify-center rounded-full border border-black/15 bg-white px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-[#58595B] transition-all duration-300 hover:border-[#C4973A] hover:bg-[#C4973A]/8 hover:text-[#C4973A] cursor-pointer"
               >
-                {ukHero.primaryButton}
-              </a>
-              <a
-                href={ukHero.secondaryHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-[43px] items-center justify-center rounded-full border border-[#C4973A] px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-[#C4973A] transition-all duration-300 hover:bg-[#C4973A] hover:text-white"
+                View Properties
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollTo("#uk-services")}
+                className="flex h-[43px] items-center justify-center rounded-full border border-black/15 bg-white px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-[#58595B] transition-all duration-300 hover:border-[#C4973A] hover:bg-[#C4973A]/8 hover:text-[#C4973A] cursor-pointer"
               >
-                {ukHero.secondaryButton}
-              </a>
+                Amenities
+              </button>
             </div>
           </motion.div>
 
@@ -214,7 +213,7 @@ export default function UkPage() {
       {/* ── PROJECTS ── matches LahorePropertiesSection card style ── */}
       <section
         id="uk-projects"
-        className="bg-white px-6 py-20 sm:px-10 sm:py-28 lg:px-20"
+        className="bg-white px-6 pb-12 pt-20 sm:px-10 sm:pb-16 sm:pt-28 lg:px-20"
         style={{ scrollMarginTop: "100px" }}
       >
         <div className="mx-auto flex max-w-[1280px] flex-col items-center">
@@ -289,7 +288,7 @@ export default function UkPage() {
                     <button
                       type="button"
                       onClick={() => navigate(project.route ?? "/contact#contact-form")}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border border-[#C4973A] text-[#C4973A] transition-all duration-300 group-hover:bg-[#C4973A] group-hover:text-white cursor-pointer"
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-black/15 text-[#58595B] transition-all duration-300 group-hover:border-[#C4973A] group-hover:text-[#C4973A] cursor-pointer"
                     >
                       <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
                     </button>
@@ -304,7 +303,7 @@ export default function UkPage() {
       {/* ── SERVICES ── matches LahoreAmenitiesPreviewSection card style ── */}
       <section
         id="uk-services"
-        className="bg-[#FFFFFF] py-20 px-6 sm:py-28 sm:px-10 lg:px-20"
+        className="bg-[#FFFFFF] pb-20 pt-12 px-6 sm:pb-28 sm:pt-16 sm:px-10 lg:px-20"
         style={{ scrollMarginTop: "100px" }}
       >
         <div className="mx-auto max-w-[1280px] flex flex-col">
@@ -316,7 +315,7 @@ export default function UkPage() {
             className="flex flex-col md:flex-row md:justify-between md:items-end gap-6 border-b border-gray-100 pb-8"
           >
             <div className="flex flex-col items-start max-w-[480px]">
-              <span className="text-[#58595B] text-[10px] font-normal tracking-[3.3px] uppercase">
+              <span className="font-roboto text-[10px] font-normal uppercase tracking-[0.33em] text-[#58595B]">
                 Complete Support
               </span>
               <h2
@@ -329,7 +328,7 @@ export default function UkPage() {
             <div>
               <a
                 href={ukHero.primaryHref}
-                className="flex h-[43px] w-[201px] items-center justify-center rounded-full border border-[#C4973A] font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-[#C4973A] transition-all duration-300 hover:bg-[#C4973A] hover:text-white"
+                className="flex h-[43px] w-[201px] items-center justify-center rounded-full border border-black/15 bg-white font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-[#58595B] transition-all duration-300 hover:border-[#C4973A] hover:bg-[#C4973A]/8 hover:text-[#C4973A]"
               >
                 {ukHero.primaryButton}
               </a>
@@ -368,7 +367,7 @@ export default function UkPage() {
       {/* ── OFFICES ── grid of office cards ── */}
       <section
         id="uk-offices"
-        className="bg-white px-6 py-20 sm:px-10 sm:py-28 lg:px-20"
+        className="bg-white px-6 pb-20 pt-12 sm:px-10 sm:pb-28 sm:pt-16 lg:px-20"
         style={{ scrollMarginTop: "100px" }}
       >
         <div className="mx-auto max-w-[1280px]">
@@ -404,6 +403,9 @@ export default function UkPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ── ENQUIRY ── */}
+      <SharedEnquirySection id="uk-enquiry" />
 
       {/* ── FAQ ── */}
       <section
@@ -458,8 +460,6 @@ export default function UkPage() {
       </section>
 
       {/* ── CTA ── */}
-      <SharedEnquirySection id="uk-enquiry" />
-
       <section
         id="uk-cta"
         className="relative flex min-h-[520px] items-center justify-center overflow-hidden px-6 py-24 text-center sm:px-10 lg:px-20"
@@ -486,21 +486,12 @@ export default function UkPage() {
           <h2 className="mt-4 font-termina text-[28px] font-normal uppercase leading-tight tracking-[0.06em] text-white sm:text-[42px]">
             {ukCta.title}
           </h2>
-          <p className="mt-5 font-roboto text-[15px] font-light leading-[27px] text-white/72">
-            {ukCta.description}
-          </p>
-          <div className="mt-8 flex w-full flex-col items-center justify-center gap-4 sm:w-auto sm:flex-row">
-            <a
-              href={ukCta.primaryHref}
-              className="flex min-h-11 w-full items-center justify-center rounded-full bg-[#C4973A] px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-white transition-all duration-300 hover:bg-white hover:text-[#1D2D4E] sm:w-auto"
-            >
-              {ukCta.primaryButton}
-            </a>
+          <div className="mt-8 flex w-full items-center justify-center">
             <a
               href={ukCta.secondaryHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-h-11 w-full items-center justify-center rounded-full border border-white/45 bg-white/10 px-7 font-roboto text-[11px] font-normal uppercase tracking-[0.18em] text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-[#1D2D4E] sm:w-auto"
+              className="inline-block rounded-full border border-white/30 bg-white/10 px-12 py-3 font-roboto text-[10px] uppercase tracking-[0.32em] text-white backdrop-blur-md transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer"
             >
               {ukCta.secondaryButton}
             </a>
