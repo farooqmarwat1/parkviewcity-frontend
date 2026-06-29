@@ -16,7 +16,7 @@ const fadeUp = {
 
 export default function LahorePaymentPlanBlockSection({ id, heading, plans }: Props) {
   return (
-    <section id={id} className="pt-14 pb-2 scroll-mt-[75px]">
+    <section id={id} className="pt-14 pb-2 scroll-mt-[110px]">
       <div className="mx-auto max-w-[1120px] px-5 sm:px-8 md:px-10">
 
         {/* Heading row */}

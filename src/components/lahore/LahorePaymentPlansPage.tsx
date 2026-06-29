@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import LahorePaymentPlanBlockSection from "./LahorePaymentPlanBlockSection";
 import { lahoreResidentialPlans, lahoreCommercialPlans } from "@/data/lahorePaymentPlans";
@@ -20,6 +18,18 @@ function byFamily<T extends { family: string }>(plans: T[]): Map<string, T[]> {
 const residentialFamilies = byFamily(lahoreResidentialPlans);
 const commercialFamilies  = byFamily(lahoreCommercialPlans);
 
+/* ── Commercial section anchors ───────────────────────────────────
+   Stable ids linked from Lahore commercial property detail cards
+   (see lahoreProperties.ts paymentPlanRoute). Override only where the
+   slugified family name doesn't match the published anchor. */
+const commercialAnchorOverrides: Record<string, string> = {
+  "Rose Commercial": "rose-market",
+};
+
+function commercialSectionId(family: string): string {
+  return commercialAnchorOverrides[family] ?? family.toLowerCase().replace(/\s+/g, "-");
+}
+
 /* ── Category divider ─────────────────────────────────────────── */
 function CategoryDivider({ label }: { label: string }) {
   return (
@@ -36,18 +46,10 @@ function CategoryDivider({ label }: { label: string }) {
 }
 
 export default function LahorePaymentPlansPage() {
-  const { hash } = useLocation();
-
-  /* Scroll to anchor when hash is present (e.g. #crystal-block-plans) */
-  useEffect(() => {
-    if (!hash) return;
-    const id = hash.slice(1);
-    const timer = setTimeout(() => {
-      const el = document.getElementById(id);
-      if (el) el.scrollIntoView({ behavior: "smooth" });
-    }, 120);
-    return () => clearTimeout(timer);
-  }, [hash]);
+  /* Hash-anchor scrolling (e.g. #crystal-block-plans, #rose-market) is
+     handled once, globally, by <ScrollToTop> in App.tsx — keeping a second
+     scrollIntoView effect here raced against it and could settle on the
+     wrong section. */
 
   return (
     /* White page background */
@@ -114,7 +116,7 @@ export default function LahorePaymentPlansPage() {
           COMMERCIAL FAMILY SECTIONS
       ════════════════════════════════════════════════════════ */}
       {Array.from(commercialFamilies.entries()).map(([family, plans]) => {
-        const id = family.toLowerCase().replace(/\s+/g, "-") + "-plans";
+        const id = commercialSectionId(family);
         return (
           <LahorePaymentPlanBlockSection
             key={family}

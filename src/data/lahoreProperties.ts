@@ -134,7 +134,7 @@ export const ROSE_MARKET_DETAIL: PropertyDetailData = {
   gallery: ROSE_MARKET_TEMP_GALLERY,
   galleryId: "rose-market-gallery",
   galleryAriaLabel: "Enlarge Rose Market gallery image",
-  paymentPlanRoute: "/lahore/payment-plans#rose-commercial-plans",
+  paymentPlanRoute: "/lahore/payment-plans#rose-market",
   closeAriaLabel: "Close Rose Market details",
 };
 
@@ -177,7 +177,7 @@ function commercialDetail({
     gallery: LAHORE_COMMERCIAL_GALLERY,
     galleryId: `${id}-gallery`,
     galleryAriaLabel: `Enlarge ${title} gallery image`,
-    paymentPlanRoute: "/lahore/payment-plans",
+    paymentPlanRoute: `/lahore/payment-plans#${id}`,
     closeAriaLabel: `Close ${title} details`,
   };
 }
