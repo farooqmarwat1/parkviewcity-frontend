@@ -52,12 +52,28 @@ function ScrollToTop() {
       return;
     }
 
-    const timer = window.setTimeout(() => {
+    let cancelled = false;
+    function scrollToAnchor() {
+      if (cancelled) return;
       const el = document.getElementById(hash.slice(1));
-      if (el) el.scrollIntoView({ behavior: "smooth" });
+      if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    // Wait for fonts to finish swapping in (font-display: swap) before
+    // measuring — otherwise a reflow shortly after first paint can throw
+    // off the computed scroll target.
+    const timer = window.setTimeout(() => {
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(scrollToAnchor);
+      } else {
+        scrollToAnchor();
+      }
     }, 120);
 
-    return () => window.clearTimeout(timer);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+    };
   }, [pathname, hash]);
   return null;
 }
