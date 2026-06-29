@@ -106,7 +106,7 @@ export const aboutCommunities: CommunityItem[] = [
     location: "United Kingdom",
     description:
       "ParkView City's international presence extending world-class community development standards to the United Kingdom.",
-    image: "/Crystal Block hero.webp",
+    image: "/uk-First_section.webp",
     logo: "/PVLahore.png",
     route: "/uk",
     status: "available",

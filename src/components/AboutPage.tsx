@@ -597,8 +597,15 @@ export default function AboutPage() {
               viewport={{ once: true, amount: 0.3 }}
               className="flex justify-center lg:justify-end"
             >
+              <div className="w-full max-w-[420px] overflow-hidden rounded-[20px] shadow-xl">
+                <img
+                  src="/Resident-Facilitation-App.webp"
+                  alt="ParkView City resident facilitation app"
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
               <div
-                className="relative flex w-full max-w-[300px] flex-col overflow-hidden rounded-[36px] bg-pvc-navy shadow-2xl"
+                className="hidden"
                 style={{ aspectRatio: "9/18" }}
               >
                 {/* Phone notch */}
