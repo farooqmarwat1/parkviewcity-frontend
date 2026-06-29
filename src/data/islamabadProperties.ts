@@ -102,7 +102,7 @@ export const AB_BLOCK_DETAIL: PropertyDetailData = {
   id: "ab-block",
   titleId: "ab-block-detail-title",
   title: "AB Block",
-  heroImage: "/Block_A%26B.png",
+  heroImage: "/Block_AB.png",
   heroAlt: "AB Block, ParkView City Islamabad aerial view",
   badges: ["Residential Plots", "Available"],
   location: "AB Block, ParkView City Islamabad",

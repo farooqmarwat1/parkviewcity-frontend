@@ -21,6 +21,30 @@ export const islamabadMainAmenities: AmenitySummary[] = [
     icon: "zap",
   },
   {
+    id: "commercial-hub",
+    category: "Commerce",
+    title: "Commercial Hub",
+    shortDescription:
+      "A dedicated commercial hub within the community provides residents with convenient access to retail, dining, and everyday services.",
+    icon: "store",
+  },
+  {
+    id: "dancing-fountain",
+    category: "Recreation",
+    title: "Dancing Fountain",
+    shortDescription:
+      "A landmark recreational feature at the heart of ParkView City Islamabad — the dancing fountain serves as an iconic community gathering point.",
+    icon: "map",
+  },
+  {
+    id: "food-valley",
+    category: "Dining",
+    title: "Food Valley",
+    shortDescription:
+      "A diverse food court and food valley bring a wide range of dining options directly within the ParkView City Islamabad community.",
+    icon: "users",
+  },
+  {
     id: "parks",
     category: "Green Spaces",
     title: "Community Parks",
@@ -36,30 +60,6 @@ export const islamabadMainAmenities: AmenitySummary[] = [
       "Trained security personnel and controlled access points maintain a secure, monitored residential environment around the clock.",
     icon: "shield",
   },
-  {
-    id: "dancing-fountain",
-    category: "Recreation",
-    title: "Dancing Fountain",
-    shortDescription:
-      "A landmark recreational feature at the heart of ParkView City Islamabad — the dancing fountain serves as an iconic community gathering point.",
-    icon: "map",
-  },
-  {
-    id: "commercial-hub",
-    category: "Commerce",
-    title: "Commercial Hub",
-    shortDescription:
-      "A dedicated commercial hub within the community provides residents with convenient access to retail, dining, and everyday services.",
-    icon: "store",
-  },
-  {
-    id: "food-court",
-    category: "Dining",
-    title: "Food Court & Food Valley",
-    shortDescription:
-      "A diverse food court and food valley bring a wide range of dining options directly within the ParkView City Islamabad community.",
-    icon: "users",
-  },
 ];
 
 export const islamabadFeaturedAmenities: FeaturedAmenity[] = [
@@ -74,8 +74,22 @@ export const islamabadFeaturedAmenities: FeaturedAmenity[] = [
       "Protected and reliable utility network",
       "Modern community infrastructure standard",
     ],
-    image: "/Tulip-Overseas-Block-HERO.webp",
-    imageAlt: "Modern infrastructure at ParkView City Islamabad",
+    image: "/Underground- Electricity.png",
+    imageAlt: "Underground electricity infrastructure at ParkView City Islamabad",
+  },
+  {
+    id: "commercial-hub-feature",
+    eyebrow: "Commerce",
+    title: "A Thriving Commercial Hub",
+    description:
+      "The commercial hub at ParkView City Islamabad brings retail, dining, and everyday services within easy reach, giving residents a convenient, walkable commercial centre.",
+    benefits: [
+      "Retail and everyday services on-site",
+      "Convenient, walkable commercial centre",
+      "Designed for residents and visitors alike",
+    ],
+    image: "/Commercial-Hub.png",
+    imageAlt: "Commercial hub at ParkView City Islamabad",
   },
   {
     id: "dancing-fountain-feature",
@@ -88,8 +102,36 @@ export const islamabadFeaturedAmenities: FeaturedAmenity[] = [
       "Illuminated evening displays",
       "Family-friendly recreational feature",
     ],
-    image: "/A Place to call home.webp",
-    imageAlt: "ParkView City Islamabad community centrepiece",
+    image: "/Dancing-Fountain.png",
+    imageAlt: "Dancing fountain at ParkView City Islamabad",
+  },
+  {
+    id: "food-valley-feature",
+    eyebrow: "Dining",
+    title: "Food Valley — A Dining Destination",
+    description:
+      "Food Valley brings together a wide range of restaurants and food outlets, creating a dedicated dining destination for residents and visitors within ParkView City Islamabad.",
+    benefits: [
+      "Wide variety of dining options",
+      "Dedicated, accessible food destination",
+      "A social hub for residents and visitors",
+    ],
+    image: "/Food-Valley.png",
+    imageAlt: "Food Valley dining area at ParkView City Islamabad",
+  },
+  {
+    id: "parks-feature",
+    eyebrow: "Green Spaces",
+    title: "Parks for Community Life",
+    description:
+      "Landscaped parks throughout ParkView City Islamabad give residents welcoming green spaces for leisure, recreation, family time, and outdoor activity.",
+    benefits: [
+      "Landscaped green spaces community-wide",
+      "Spaces for leisure and family time",
+      "Outdoor recreation close to home",
+    ],
+    image: "/Parks.png",
+    imageAlt: "Community parks at ParkView City Islamabad",
   },
   {
     id: "security-feature",
@@ -102,22 +144,8 @@ export const islamabadFeaturedAmenities: FeaturedAmenity[] = [
       "Trained security personnel on patrol",
       "Residential and commercial monitoring",
     ],
-    image: "/Crystal Block hero.webp",
-    imageAlt: "Secure gated entry at ParkView City Islamabad",
-  },
-  {
-    id: "grand-mosque-feature",
-    eyebrow: "Community",
-    title: "Grand Mosque",
-    description:
-      "A grand mosque within ParkView City Islamabad serves as a spiritual and community anchor for residents — offering a beautiful, accessible space for worship and reflection.",
-    benefits: [
-      "Centrally located within the community",
-      "Accessible from all residential zones",
-      "Grand architectural design",
-    ],
-    image: "/ProjectIslamabad.png",
-    imageAlt: "ParkView City Islamabad community mosque aerial view",
+    image: "/Security.png",
+    imageAlt: "Security at ParkView City Islamabad",
   },
 ];
 

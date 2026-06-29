@@ -163,7 +163,7 @@ const residential: Property[] = [
   },
   {
     id:    "fountain-view-residences",
-    image: "/A Place to call home.webp",
+    image: "/fountain-view.png",
     badge: "Residential Apartments",
     meta:  "1-Bed, 2-Bed, 3-Bed & Penthouses",
     title: "Fountain View Residences",
