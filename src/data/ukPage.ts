@@ -28,7 +28,8 @@ export interface UkFaqItem {
 }
 
 export const ukHero = {
-  image: "/ProjectIslamabad.png",
+  video: "/uk-Hero_Section.mp4",
+  posterImage: "/uk-hero-section.webp",
   eyebrow: "Authorised UK Sales Offices - London · Manchester · Birmingham",
   title: "ParkView City UK Sales Office",
   description:
@@ -47,6 +48,8 @@ export const ukHero = {
 export const ukIntro = {
   eyebrow: "ParkView City in the United Kingdom",
   title: "A UK Doorway to Pakistan's Most Planned Communities",
+  image: "/uk-First_section.webp",
+  imageAlt: "ParkView City community overview for UK investors",
   paragraphs: [
     "ParkView City is one of Pakistan's best-known master-planned developments, with major communities in Islamabad and Lahore and a five-star coastal resort planned near Karachi.",
     "The UK Sales Office helps British Pakistanis purchase property without repeatedly travelling to Pakistan to manage paperwork.",
@@ -59,7 +62,7 @@ export const ukProjects: UkProject[] = [
     title: "ParkView City Islamabad",
     description:
       "A landmark capital-city community near the Margalla foothills, offering residential plots, premium apartments, and commercial opportunities.",
-    image: "/ProjectIslamabad.png",
+    image: "/IslamabadProjectPic.webp",
     imageAlt: "ParkView City Islamabad aerial development view",
     features: [
       "Residential and commercial options",
@@ -72,7 +75,7 @@ export const ukProjects: UkProject[] = [
     title: "ParkView City Lahore",
     description:
       "A modern gated community on Multan Road with residential and commercial opportunities, landscaped spaces, schools, parks, and convenient city access.",
-    image: "/ProjectLahore.png",
+    image: "/LahorePorjectPic.webp",
     imageAlt: "ParkView City Lahore aerial development view",
     features: [
       "Residential plots and commercial areas",
@@ -85,7 +88,7 @@ export const ukProjects: UkProject[] = [
     title: "ParkView Beach Resort",
     description:
       "A planned five-star coastal resort near Karachi featuring sea-facing apartments, penthouses, hospitality, leisure, and rental opportunities.",
-    image: "/VirtualTourSection.webp",
+    image: "/BeachResortProject.webp",
     imageAlt: "Premium ParkView City development landscape",
     features: [
       "Sea-facing apartments and penthouses",
@@ -176,7 +179,7 @@ export const ukFaqItems: UkFaqItem[] = [
 ];
 
 export const ukCta = {
-  image: "/VirtualTourSection.webp",
+  image: "/uk-CTA.webp",
   eyebrow: "Speak with the UK Team",
   title: "Ready to Talk Through the Numbers?",
   description:
