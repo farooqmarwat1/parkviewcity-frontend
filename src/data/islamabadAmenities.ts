@@ -1,7 +1,4 @@
-import type {
-  FeaturedAmenity,
-  GalleryImage,
-} from "@/data/lahoreAmenities";
+import type { FeaturedAmenity } from "@/data/lahoreAmenities";
 
 export const islamabadAmenitiesHeroImage = "/AmenetiesHerosection-isb.png";
 export const islamabadAmenitiesCtaImage  = "/VirtualTourSection.webp";
@@ -93,52 +90,7 @@ export const islamabadFeaturedAmenities: FeaturedAmenity[] = [
   },
 ];
 
-export const islamabadSupportingAmenities: SupportingAmenity[] = [
-  {
-    id: "wide-roads",
-    category: "Infrastructure",
-    title: "Wide Roads & Boulevards",
-    description: "Spacious internal roads and tree-lined boulevards support smooth traffic flow throughout the community.",
-    icon: "car",
-  },
-  {
-    id: "grand-mosque",
-    category: "Community",
-    title: "Grand Mosque",
-    description: "A landmark mosque within the community provides a place of worship close to every resident.",
-    icon: "landmark",
-  },
-  {
-    id: "complete-utilities",
-    category: "Infrastructure",
-    title: "Complete Utilities",
-    description: "Planned utility connections — water, gas, electricity, and sewerage — are integrated throughout the society.",
-    icon: "zap",
-  },
-  {
-    id: "gated-community",
-    category: "Safety",
-    title: "Gated Community",
-    description: "Controlled entry and exit across the community boundary ensures privacy, organization, and security.",
-    icon: "shield",
-  },
-  {
-    id: "food-valley",
-    category: "Dining",
-    title: "Food Valley",
-    description: "A dedicated food valley brings multiple dining options together in one accessible, family-friendly zone.",
-    icon: "users",
-  },
-  {
-    id: "commercial-areas",
-    category: "Convenience",
-    title: "Commercial & Retail Areas",
-    description: "Multiple commercial zones provide residents with everyday shopping, services, and business conveniences.",
-    icon: "store",
-  },
-];
-
-export const islamabadAmenitiesGallery: GalleryImage[] = [
+export const islamabadAmenitiesGallery: { src: string; alt: string }[] = [
   { src: "/ProjectIslamabad.png",            alt: "Aerial view of ParkView City Islamabad" },
   { src: "/Pakistan's-Biggest-Dancing-Fountain.webp", alt: "Dancing fountain at ParkView City Islamabad" },
   { src: "/A Place to call home.webp",       alt: "Residential landscape at ParkView City Islamabad" },

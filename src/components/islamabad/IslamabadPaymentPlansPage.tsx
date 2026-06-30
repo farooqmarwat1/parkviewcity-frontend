@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import ExploreButton from "@/components/ExploreButton";
 import LahorePaymentPlanBlockSection from "@/components/lahore/LahorePaymentPlanBlockSection";
 import { islamabadResidentialPlans, islamabadCommercialPlans } from "@/data/islamabadPaymentPlans";
-import ExploreButton from "@/components/ExploreButton";
 
 const easeOut: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
