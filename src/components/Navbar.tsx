@@ -45,7 +45,7 @@ export default function Navbar() {
   }
 
   const linkCls = [
-    "group relative pb-1 text-[11px] font-light uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer font-roboto whitespace-nowrap",
+    "group relative pb-1 text-[11px] font-normal uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer font-roboto whitespace-nowrap",
     solid ? "text-pvc-ink/75 hover:text-pvc-green" : "text-white/85 hover:text-white",
   ].join(" ");
 
@@ -54,7 +54,7 @@ export default function Navbar() {
   const activeLinkCls = `${linkCls} !text-pvc-gold`;
 
   const enquireNowCls = [
-    "flex items-center gap-2 rounded-full border px-5 py-2 text-[10px] font-light uppercase tracking-[0.18em] transition-all duration-300 cursor-pointer font-roboto whitespace-nowrap",
+    "flex items-center gap-2 rounded-full border px-5 py-2 text-[10px] font-normal uppercase tracking-[0.18em] transition-all duration-300 cursor-pointer font-roboto whitespace-nowrap",
     solid
       ? "border-pvc-ink/25 text-pvc-ink/60 hover:border-pvc-gold hover:text-pvc-gold"
       : "border-white/65 bg-[rgba(0,0,0,0.38)] text-white hover:bg-[#C4973A] hover:border-[#C4973A] hover:text-white",
@@ -241,7 +241,7 @@ export default function Navbar() {
                     key={label}
                     href={`${cityBase}#${id}`}
                     onClick={e => { e.preventDefault(); goToCitySection(id); }}
-                    className="flex items-center py-4 font-roboto text-sm font-light uppercase tracking-[0.18em] text-pvc-ink/75 transition-colors hover:text-pvc-gold cursor-pointer"
+                    className="flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] text-pvc-ink/75 transition-colors hover:text-pvc-gold cursor-pointer"
                   >
                     {label}
                   </a>
@@ -250,7 +250,7 @@ export default function Navbar() {
                   href={paymentPlansRoute()}
                   onClick={e => { e.preventDefault(); goTo(paymentPlansRoute()); }}
                   className={[
-                    "flex items-center py-4 font-roboto text-sm font-light uppercase tracking-[0.18em] transition-colors cursor-pointer",
+                    "flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] transition-colors cursor-pointer",
                     isPaymentPlans ? "text-pvc-gold" : "text-pvc-ink/75 hover:text-pvc-gold",
                   ].join(" ")}
                 >
@@ -260,7 +260,7 @@ export default function Navbar() {
                   href="/contact"
                   onClick={e => { e.preventDefault(); goTo("/contact"); }}
                   className={[
-                    "flex items-center py-4 font-roboto text-sm font-light uppercase tracking-[0.18em] transition-colors cursor-pointer",
+                    "flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] transition-colors cursor-pointer",
                     isContact ? "text-pvc-gold" : "text-pvc-ink/75 hover:text-pvc-gold",
                   ].join(" ")}
                 >
@@ -288,7 +288,7 @@ export default function Navbar() {
                     href={href}
                     onClick={e => { e.preventDefault(); goTo(href); }}
                     className={[
-                      "flex items-center py-4 font-roboto text-sm font-light uppercase tracking-[0.18em] transition-colors cursor-pointer",
+                      "flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] transition-colors cursor-pointer",
                       isActive ? "text-pvc-gold" : "text-pvc-ink/75 hover:text-pvc-green",
                     ].join(" ")}
                   >
@@ -300,7 +300,7 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => goTo("/contact#contact-form")}
-              className="flex items-center gap-2 py-4 font-roboto text-sm font-light uppercase tracking-[0.18em] text-pvc-gold transition-colors hover:text-pvc-green cursor-pointer text-left"
+              className="flex items-center gap-2 py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] text-pvc-gold transition-colors hover:text-pvc-green cursor-pointer text-left"
             >
               <Phone className="h-4 w-4" />
               Enquire Now
