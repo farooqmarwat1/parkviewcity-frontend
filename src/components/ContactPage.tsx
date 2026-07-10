@@ -757,7 +757,7 @@ export default function ContactPage() {
           <motion.div
             variants={fadeUp} initial="hidden" whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
-            className="mt-5 flex flex-wrap items-start gap-6 rounded-[15px] border border-gray-100 bg-white p-5"
+            className="mt-5 flex flex-col gap-4 rounded-[15px] border border-gray-100 bg-white p-5 sm:flex-row sm:flex-wrap sm:items-start sm:gap-6"
           >
             <div className="flex items-start gap-3 min-w-0 flex-1">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-pvc-gold" strokeWidth={1.5} />
