@@ -40,6 +40,7 @@ function getCityPath(city: CityKey, target: "properties" | "amenities" | "virtua
 }
 
 function isActivePath(pathname: string, href: string) {
+  if (href.includes("#")) return false;
   const base = href.split("#")[0];
   if (base === "/") return pathname === "/";
   return pathname === base;
@@ -131,25 +132,19 @@ function NavigationDrawer({
           )}
 
           <div className="flex flex-col divide-y divide-black/10">
-            {drawerItems.map(item => {
-              const active = isActivePath(pathname, item.href);
-              return (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={event => {
-                    event.preventDefault();
-                    goTo(item.href);
-                  }}
-                  className={[
-                    "flex items-center py-4 font-roboto text-sm uppercase tracking-[0.18em] transition-colors",
-                    active ? "font-medium text-pvc-gold" : "font-normal text-pvc-ink/75 hover:text-pvc-green",
-                  ].join(" ")}
-                >
-                  {item.label}
-                </a>
-              );
-            })}
+            {drawerItems.map(item => (
+              <a
+                key={item.label}
+                href={item.href}
+                onClick={event => {
+                  event.preventDefault();
+                  goTo(item.href);
+                }}
+                className="flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] text-pvc-ink/75 transition-colors hover:text-pvc-green"
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
 
           <button

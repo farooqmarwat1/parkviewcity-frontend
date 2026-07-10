@@ -256,7 +256,7 @@ export default function AboutPage() {
         <motion.div
           variants={stagger} initial="hidden" whileInView="show"
           viewport={{ once: true, amount: 0.15 }}
-          className="grid grid-cols-1 gap-4 lg:grid-cols-3"
+          className="grid grid-cols-1 gap-4 md:grid-cols-2"
         >
           {aboutCommunities.map((c, i) => (
             <motion.article
