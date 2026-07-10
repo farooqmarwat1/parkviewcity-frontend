@@ -117,6 +117,7 @@ export default function LahorePaymentPlansPage() {
             id={id}
             heading={family}
             plans={plans}
+            city="lahore"
           />
         );
       })}
@@ -139,6 +140,7 @@ export default function LahorePaymentPlansPage() {
             id={id}
             heading={family}
             plans={plans}
+            city="lahore"
           />
         );
       })}

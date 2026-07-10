@@ -111,6 +111,7 @@ export default function IslamabadPaymentPlansPage() {
             id={id}
             heading={family}
             plans={plans}
+            city="islamabad"
           />
         );
       })}
@@ -133,6 +134,7 @@ export default function IslamabadPaymentPlansPage() {
             id={id}
             heading={family}
             plans={plans}
+            city="islamabad"
           />
         );
       })}
