@@ -100,17 +100,6 @@ export const aboutCommunities: CommunityItem[] = [
     route: "/islamabad",
     status: "available",
   },
-  {
-    id: "uk",
-    name: "ParkView City UK",
-    location: "United Kingdom",
-    description:
-      "ParkView City's international presence extending world-class community development standards to the United Kingdom.",
-    image: "/uk-First_section.webp",
-    logo: "/PVLahore.png",
-    route: "/uk",
-    status: "available",
-  },
 ];
 
 /* ── Core values ─────────────────────────────────────────────── */

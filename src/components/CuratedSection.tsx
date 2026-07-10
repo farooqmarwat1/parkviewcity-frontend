@@ -90,7 +90,7 @@ export default function CuratedSection() {
 
   return (
     // Moderate mobile negative margin: reduces gap without cutting images
-    <section id="gallery" className="relative bg-white pt-16 sm:pt-32 pb-[150px] sm:pb-[500px] -mb-[60px] sm:-mb-[660px] overflow-hidden">
+    <section id="home-gallery" className="relative scroll-mt-24 bg-white pt-16 sm:pt-32 pb-[150px] sm:pb-[500px] -mb-[60px] sm:-mb-[660px] overflow-hidden">
       <style dangerouslySetInnerHTML={{ __html: `
             @keyframes marquee {
                 0% { transform: translateX(0); }

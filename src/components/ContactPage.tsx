@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { motion, type Variants } from "framer-motion";
 import {
   Phone, Mail, MapPin, Send, CheckCircle,
-  AlertCircle, ChevronDown, ExternalLink,
+  AlertCircle, CalendarClock, ChevronDown, ExternalLink,
 } from "lucide-react";
 import {
   officeRecords, PRIMARY_OFFICE_IDS, MAP_OFFICE_IDS,
@@ -241,7 +241,7 @@ export default function ContactPage() {
   function handleViewOnMap(office: OfficeRecord) {
     if (MAP_OFFICE_IDS.includes(office.id)) {
       setActiveMapId(office.id);
-      document.getElementById("locations")?.scrollIntoView({ behavior: "smooth" });
+      document.getElementById("locations")?.scrollIntoView({ behavior: "smooth", block: "start" });
     } else if (office.mapQuery) {
       window.open(mapOpenUrl(office.mapQuery), "_blank", "noopener,noreferrer");
     }
@@ -299,7 +299,7 @@ export default function ContactPage() {
   }
 
   function scrollToForm() {
-    const el = document.getElementById("contact-form");
+    const el = document.getElementById("contact-enquiry-form") ?? document.getElementById("contact-form");
     if (el) el.scrollIntoView({ behavior: "smooth" });
   }
 
@@ -308,7 +308,8 @@ export default function ContactPage() {
 
   /* Additional offices grouped */
   const nationalOthers       = officeRecords.filter(o => o.region === "pakistan" && !PRIMARY_OFFICE_IDS.includes(o.id));
-  const internationalOffices = officeRecords.filter(o => o.region === "international");
+  const ukOffices            = officeRecords.filter(o => o.country === "United Kingdom");
+  const internationalOffices = officeRecords.filter(o => o.region === "international" && o.country !== "United Kingdom");
 
   return (
     <div className="bg-white">
@@ -384,9 +385,9 @@ export default function ContactPage() {
       {/* ═══════════════════════════════════════════════════════
           3 ▸ CONTACT INFO + FORM
       ═══════════════════════════════════════════════════════ */}
-      <section id="contact-form" className="bg-white pb-10 scroll-mt-[140px] sm:pb-12">
+      <section id="main-offices" className="bg-white pb-10 scroll-mt-[140px] sm:pb-12">
         <div className="mx-auto max-w-[1200px] px-6 sm:px-10">
-          <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="grid grid-cols-1 items-start gap-12">
 
             {/* ── Left: Primary office cards ─────────────────── */}
             <motion.div
@@ -403,7 +404,7 @@ export default function ContactPage() {
                 </h3>
               </motion.div>
 
-              <motion.div variants={stagger} className="flex flex-col gap-4">
+              <motion.div variants={stagger} className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 {primaryOffices.map(office => (
                   <PrimaryOfficeCard key={office.id} office={office} onViewOnMap={handleViewOnMap} />
                 ))}
@@ -415,7 +416,7 @@ export default function ContactPage() {
             <motion.div
               variants={fadeUp} initial="hidden" whileInView="show"
               viewport={{ once: true, amount: 0.2 }}
-              className="rounded-[20px] border border-gray-200 bg-white p-8 sm:p-10 shadow-sm"
+              className="hidden rounded-[20px] border border-gray-200 bg-white p-8 sm:p-10 shadow-sm"
             >
               <p className="mb-1 font-roboto text-[11px] font-light uppercase tracking-[0.3em] text-pvc-gold">
                 Reach Out
@@ -658,9 +659,32 @@ export default function ContactPage() {
               International Offices
             </motion.p>
             <motion.div variants={stagger}
-              className="grid auto-rows-fr grid-cols-1 gap-5 sm:grid-cols-2"
+              className="mb-10 grid auto-rows-fr grid-cols-1 gap-5 sm:grid-cols-2"
             >
               {internationalOffices.map(o => (
+                <motion.div key={o.id} variants={fadeUp} className="h-full">
+                  <AdditionalOfficeCard office={o} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* UK Offices */}
+          <motion.div
+            id="uk-offices"
+            variants={stagger} initial="hidden" whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="scroll-mt-[140px]"
+          >
+            <motion.p variants={fadeUp}
+              className="mb-5 font-roboto text-[10px] font-normal uppercase tracking-[0.28em] text-pvc-navy/60"
+            >
+              UK Offices
+            </motion.p>
+            <motion.div variants={stagger}
+              className="grid auto-rows-fr grid-cols-1 gap-5 sm:grid-cols-2"
+            >
+              {ukOffices.map(o => (
                 <motion.div key={o.id} variants={fadeUp} className="h-full">
                   <AdditionalOfficeCard office={o} />
                 </motion.div>
@@ -806,6 +830,120 @@ export default function ContactPage() {
       {/* ═══════════════════════════════════════════════════════
           6 ▸ CTA
       ═══════════════════════════════════════════════════════ */}
+      <section id="contact-enquiry-form" className="relative bg-white py-16 scroll-mt-[140px] sm:py-20">
+        <span id="contact-form" className="absolute -top-[140px]" aria-hidden="true" />
+        <div className="mx-auto grid max-w-[1200px] grid-cols-1 items-stretch gap-8 px-6 sm:px-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-12">
+          <motion.div
+            variants={fadeUp} initial="hidden" whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="flex h-full flex-col rounded-[20px] border border-black/[0.08] bg-white p-8 shadow-sm sm:p-10"
+          >
+            <p className="mb-1 font-roboto text-[11px] font-light uppercase tracking-[0.3em] text-pvc-gold">Quick Contact</p>
+            <h3 className="mb-7 font-termina text-[22px] font-normal text-pvc-navy">TALK TO OUR TEAM</h3>
+
+            <div className="flex flex-col gap-5">
+              {[
+                { Icon: Phone, label: "Sales Hotline", value: "+92 (51) 000-0000" },
+                { Icon: Mail, label: "Email Us", value: "info@parkviewcity.com.pk" },
+                { Icon: MapPin, label: "Visit Office", value: "Bani Gala Road, Islamabad" },
+              ].map(({ Icon, label, value }) => (
+                <div key={label} className="flex items-start gap-4 rounded-[15px] border border-gray-100 bg-[#FAFAFA] p-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-pvc-gold/40">
+                    <Icon className="h-4 w-4 text-pvc-gold" strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <p className="font-roboto text-[10px] font-medium uppercase tracking-[0.2em] text-[#3F4447]">{label}</p>
+                    <p className="mt-1 font-roboto text-[14px] font-light leading-[22px] text-pvc-grey">{value}</p>
+                  </div>
+                </div>
+              ))}
+
+              <div className="mt-auto rounded-[15px] border border-pvc-gold/25 bg-white p-5">
+                <div className="mb-4 flex items-center gap-3">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-pvc-gold/40">
+                    <CalendarClock className="h-4 w-4 text-pvc-gold" strokeWidth={1.5} />
+                  </div>
+                  <p className="font-roboto text-[10px] font-medium uppercase tracking-[0.2em] text-pvc-navy">Office Hours</p>
+                </div>
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                  <p className="font-roboto text-[13px] font-light leading-[21px] text-pvc-grey">Mon - Sat: 9:00 AM - 7:00 PM</p>
+                  <p className="font-roboto text-[13px] font-light leading-[21px] text-pvc-grey">Sunday: 10:00 AM - 5:00 PM</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={fadeUp} initial="hidden" whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            className="h-full rounded-[20px] border border-gray-200 bg-white p-8 shadow-sm sm:p-10"
+          >
+            <p className="mb-1 font-roboto text-[11px] font-light uppercase tracking-[0.3em] text-pvc-gold">Reach Out</p>
+            <h3 className="mb-7 font-termina text-[22px] font-normal text-pvc-navy">SEND AN ENQUIRY</h3>
+            {status === "success" ? (
+              <div aria-live="polite" className="mb-6 flex flex-col items-center gap-3 rounded-[15px] border border-green-100 bg-green-50 p-8 text-center">
+                <CheckCircle className="h-10 w-10 text-green-500" strokeWidth={1.5} />
+                <p className="font-termina text-[16px] text-pvc-navy">Thank You!</p>
+                <p className="font-roboto text-[14px] font-light text-pvc-grey">Your enquiry has been received. A member of our team will be in touch with you shortly.</p>
+                <button onClick={() => setStatus("idle")} className="mt-2 font-roboto text-[11px] uppercase tracking-[0.2em] text-pvc-gold hover:underline cursor-pointer">Send another enquiry</button>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-5">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <Field label="Full Name" required error={errors.name}>
+                    <input type="text" name="name" value={fields.name} onChange={e => update("name", e.target.value)} placeholder="Your full name" autoComplete="name" aria-required="true" aria-invalid={!!errors.name} className={inputCls(!!errors.name)} />
+                  </Field>
+                  <Field label="Email Address" required error={errors.email}>
+                    <input type="email" name="email" value={fields.email} onChange={e => update("email", e.target.value)} placeholder="your@email.com" autoComplete="email" aria-required="true" aria-invalid={!!errors.email} className={inputCls(!!errors.email)} />
+                  </Field>
+                </div>
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                  <Field label="Phone Number" required error={errors.phone}>
+                    <input type="tel" name="phone" value={fields.phone} onChange={e => update("phone", e.target.value)} placeholder="+92 xxx xxxxxxx" autoComplete="tel" aria-required="true" aria-invalid={!!errors.phone} className={inputCls(!!errors.phone)} />
+                  </Field>
+                  <Field label="City">
+                    <input type="text" name="city" value={fields.city} onChange={e => update("city", e.target.value)} placeholder="e.g. Islamabad, Lahore" autoComplete="address-level2" className={inputCls(false)} />
+                  </Field>
+                </div>
+                <Field label="Enquiry Type" required error={errors.enquiryType}>
+                  <div className="relative">
+                    <select name="enquiryType" value={fields.enquiryType} onChange={e => update("enquiryType", e.target.value)} aria-required="true" aria-invalid={!!errors.enquiryType} className={`${inputCls(!!errors.enquiryType)} appearance-none pr-10 ${!fields.enquiryType ? "text-pvc-ink/30" : "text-pvc-ink"}`}>
+                      <option value="" disabled>Select enquiry type</option>
+                      {ENQUIRY_TYPES.map(t => <option key={t} value={t}>{t}</option>)}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-pvc-grey/60" strokeWidth={1.5} />
+                  </div>
+                </Field>
+                <Field label="Message">
+                  <textarea name="message" value={fields.message} onChange={e => update("message", e.target.value)} rows={4} placeholder="Tell us about your requirements..." autoComplete="off" className={`${inputCls(false)} h-auto resize-none py-3`} />
+                </Field>
+                <div>
+                  <label className="flex items-start gap-3 cursor-pointer select-none">
+                    <div className="relative mt-0.5 shrink-0">
+                      <input type="checkbox" checked={fields.consent} onChange={e => update("consent", e.target.checked)} aria-required="true" className="peer sr-only" />
+                      <div className={["flex items-center justify-center rounded border transition-colors duration-200", fields.consent ? "border-pvc-gold bg-pvc-gold" : errors.consent ? "border-red-400 bg-white" : "border-gray-300 bg-white"].join(" ")} style={{ width: "18px", height: "18px" }}>
+                        {fields.consent && <svg viewBox="0 0 12 9" fill="none" className="h-3 w-3"><path d="M1 4l3.5 3.5L11 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>}
+                      </div>
+                    </div>
+                    <span className="font-roboto text-[12px] font-light leading-[18px] text-pvc-grey">I consent to ParkView City collecting and storing the information provided above to respond to my enquiry.</span>
+                  </label>
+                  {errors.consent && <p aria-live="polite" className="mt-1.5 font-roboto text-[11px] text-red-500">{errors.consent}</p>}
+                </div>
+                {status === "error" && (
+                  <div aria-live="assertive" className="flex items-center gap-3 rounded-[12px] border border-red-100 bg-red-50 px-4 py-3">
+                    <AlertCircle className="h-4 w-4 shrink-0 text-red-500" strokeWidth={1.5} />
+                    <p className="font-roboto text-[13px] font-light text-red-600">Something went wrong. Please try again or contact us directly.</p>
+                  </div>
+                )}
+                <button type="submit" disabled={status === "sending"} className="mt-1 flex h-[52px] w-full items-center justify-center gap-2.5 rounded-[30px] border border-pvc-ink/25 font-roboto text-[11px] uppercase tracking-[0.25em] text-pvc-ink/60 transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                  {status === "sending" ? <><span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-pvc-gold/40 border-t-pvc-gold" />Sending...</> : <><Send className="h-3.5 w-3.5" strokeWidth={1.5} />SEND ENQUIRY</>}
+                </button>
+              </form>
+            )}
+          </motion.div>
+        </div>
+      </section>
+
       <section
         className="relative overflow-hidden py-20 sm:py-28"
         style={{

@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Routes, Route, useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { Navigate, Routes, Route, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import HeroStack from "@/components/HeroStack";
@@ -11,7 +11,7 @@ import ContactSection from "@/components/ContactSection";
 import ContactPage from "@/components/ContactPage";
 import AboutPage from "@/components/AboutPage";
 import OurAchievementsSection from "@/components/OurAchievementsSection";
-import UkPage from "@/components/UkPage";
+import ProjectsPage from "@/components/ProjectsPage";
 import SharedEnquirySection from "@/components/SharedEnquirySection";
 
 import LahoreHeroStack from "@/components/lahore/LahoreHeroStack";
@@ -293,7 +293,9 @@ export default function App() {
           <Route path="/islamabad"                 element={<IslamabadHomePage />} />
           <Route path="/islamabad/amenities"       element={<IslamabadAmenitiesPage />} />
           <Route path="/islamabad/payment-plans"   element={<IslamabadPaymentPlansPage />} />
-          <Route path="/uk"                        element={<UkPage />} />
+          <Route path="/gallery"                   element={<ProjectsPage />} />
+          <Route path="/projects"                  element={<ProjectsPage />} />
+          <Route path="/uk"                        element={<Navigate to="/contact#uk-offices" replace />} />
           <Route path="/contact"                   element={<ContactPage />} />
           <Route path="/about"                     element={<AboutPage />} />
           <Route path="*"                          element={<HomePage />} />

@@ -398,7 +398,7 @@ export default function AboutPage() {
             <motion.div variants={fadeUp} className="mt-8">
               <button
                 type="button"
-                onClick={() => navigate("/contact#contact-form")}
+                onClick={() => navigate("/contact#contact-enquiry-form")}
                 className="flex h-[48px] items-center gap-2 rounded-full border border-pvc-navy/25 px-7 font-roboto text-[10px] uppercase tracking-[0.22em] text-pvc-navy/70 transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer"
               >
                 Enquire Now
@@ -585,7 +585,7 @@ export default function AboutPage() {
               <motion.div variants={fadeUp} className="mt-8">
                 <button
                   type="button"
-                  onClick={() => navigate("/contact#contact-form")}
+                  onClick={() => navigate("/contact#contact-enquiry-form")}
                   className="flex h-[48px] items-center gap-2 rounded-full border border-pvc-navy/25 px-7 font-roboto text-[10px] uppercase tracking-[0.22em] text-pvc-navy/70 transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer"
                 >
                   Learn More
@@ -697,7 +697,7 @@ export default function AboutPage() {
             >
               <button
                 type="button"
-                onClick={() => navigate("/contact#contact-form")}
+                onClick={() => navigate("/contact#contact-enquiry-form")}
                 className="inline-block rounded-full border border-white/30 bg-white/10 px-12 py-3 font-roboto text-[10px] uppercase tracking-[0.32em] text-white backdrop-blur-md transition-all duration-300 hover:border-pvc-gold hover:text-pvc-gold cursor-pointer"
               >
                 Enquire Now
