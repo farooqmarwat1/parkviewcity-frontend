@@ -43,6 +43,6 @@ export const projects: ProjectData[] = [
     paymentPlansRoute: "/islamabad/payment-plans",
     image: "/ProjectIslamabad.png",
     logo: "/PVIsb.png",
-    status: "coming-soon",
+    status: "available",
   },
 ];

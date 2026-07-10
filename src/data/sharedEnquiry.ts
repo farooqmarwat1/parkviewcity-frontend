@@ -36,6 +36,5 @@ export const sharedEnquiryConfig: SharedEnquiryConfig = {
   interestOptions: [
     "ParkView City Islamabad",
     "ParkView City Lahore",
-    "ParkView City UK",
   ],
 };

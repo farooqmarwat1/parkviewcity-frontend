@@ -519,7 +519,7 @@ export default function ProjectsPage() {
             >
               <button
                 type="button"
-                onClick={() => navigate("/contact#contact-form")}
+                onClick={() => navigate("/contact#contact-enquiry-form")}
                 className="flex h-[52px] min-w-[180px] items-center justify-center gap-2 rounded-full bg-pvc-gold px-8 font-roboto text-[11px] uppercase tracking-[0.25em] text-white transition-all duration-300 hover:bg-pvc-gold/85 cursor-pointer"
               >
                 Enquire Now

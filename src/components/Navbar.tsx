@@ -1,27 +1,188 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { Phone, Menu, X } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Menu, Phone, X } from "lucide-react";
 
-/* ── Global page links (non-city pages) ─────────────────────────── */
-const globalLeftLinks  = ["Lahore", "Islamabad", "Parkview City UK"];
-const globalRightLinks = ["Gallery", "About Us", "Contact"];
+type NavItem = {
+  label: string;
+  href: string;
+  type?: "button";
+};
 
-/* ── City section-scroll links ──────────────────────────────────── */
-const cityScrollLinks: { label: string; id: string }[] = [
-  { label: "Properties",    id: "properties"   },
-  { label: "Amenities",     id: "amenities"    },
-  { label: "Virtual Tours", id: "virtual-tour" },
-  { label: "About Us",      id: "about"        },
+const globalLeftLinks: NavItem[] = [
+  { label: "Lahore", href: "/lahore" },
+  { label: "Islamabad", href: "/islamabad" },
+  { label: "Gallery", href: "/#home-gallery" },
 ];
+
+const globalRightLinks: NavItem[] = [
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+const cityNames = {
+  lahore: "Lahore",
+  islamabad: "Islamabad",
+} as const;
+
+type CityKey = keyof typeof cityNames;
+
+const cityRoutes: Record<CityKey, string> = {
+  lahore: "/lahore",
+  islamabad: "/islamabad",
+};
+
+function getCityPath(city: CityKey, target: "properties" | "amenities" | "virtual-tour" | "payment-plans" | "contact") {
+  if (target === "properties") return `${cityRoutes[city]}#properties`;
+  if (target === "amenities") return `${cityRoutes[city]}/amenities`;
+  if (target === "virtual-tour") return `${cityRoutes[city]}#virtual-tour`;
+  if (target === "payment-plans") return `${cityRoutes[city]}/payment-plans`;
+  return `${cityRoutes[city]}#${city}-enquiry-form`;
+}
+
+function isActivePath(pathname: string, href: string) {
+  const base = href.split("#")[0];
+  if (base === "/") return pathname === "/";
+  return pathname === base;
+}
+
+function NavigationDrawer({
+  open,
+  solid,
+  city,
+  pathname,
+  close,
+  goTo,
+}: {
+  open: boolean;
+  solid: boolean;
+  city: CityKey | null;
+  pathname: string;
+  close: () => void;
+  goTo: (href: string) => void;
+}) {
+  const otherCity: CityKey | null = city === "lahore" ? "islamabad" : city === "islamabad" ? "lahore" : null;
+  const drawerItems: NavItem[] = city
+    ? [
+        ...(otherCity ? [{ label: cityNames[otherCity], href: cityRoutes[otherCity] }] : []),
+        { label: "Properties", href: getCityPath(city, "properties") },
+        { label: "Amenities", href: getCityPath(city, "amenities") },
+        { label: "Virtual Tours", href: getCityPath(city, "virtual-tour") },
+        { label: "Payment Plans", href: getCityPath(city, "payment-plans") },
+        { label: "About Us", href: "/about" },
+        { label: "Contact Us", href: getCityPath(city, "contact") },
+      ]
+    : [
+        { label: "Gallery", href: "/#home-gallery" },
+        { label: "About Us", href: "/about" },
+        { label: "Contact", href: "/contact" },
+      ];
+
+  return (
+    <>
+      <div
+        className={[
+          "fixed inset-0 z-50 bg-black/45 transition-opacity duration-[250ms] lg:hidden",
+          open ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0",
+        ].join(" ")}
+        aria-hidden="true"
+        onClick={close}
+      />
+      <aside
+        id="mobile-navigation-drawer"
+        className={[
+          "fixed right-0 top-0 z-[55] h-dvh w-[min(86vw,360px)] bg-white shadow-2xl transition-transform duration-[250ms] ease-out lg:hidden",
+          open ? "translate-x-0" : "translate-x-full",
+        ].join(" ")}
+        aria-hidden={!open}
+      >
+        <div className="flex h-[70px] items-center justify-between border-b border-black/10 px-5">
+          <img
+            src="/parkview-city-mobile-logo-black.png"
+            alt="ParkView City"
+            className="h-auto max-h-10 max-w-[170px] object-contain"
+          />
+          <button
+            type="button"
+            onClick={close}
+            aria-label="Close menu"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-pvc-ink/10 text-pvc-ink transition-colors hover:border-pvc-gold hover:text-pvc-gold"
+          >
+            <X className="h-5 w-5" />
+          </button>
+        </div>
+
+        <nav className="flex h-[calc(100dvh-70px)] flex-col overflow-y-auto px-6 py-6">
+          {!city && (
+            <div className="mb-5">
+              <p className="mb-3 font-roboto text-[9px] uppercase tracking-[0.24em] text-pvc-grey">Projects</p>
+              <div className="grid grid-cols-2 gap-2">
+                {(["lahore", "islamabad"] as CityKey[]).map(option => (
+                  <button
+                    key={option}
+                    type="button"
+                    onClick={() => goTo(cityRoutes[option])}
+                    className="rounded-full border border-pvc-ink/15 px-4 py-2.5 font-roboto text-[10px] uppercase tracking-[0.18em] text-pvc-ink/70 transition-colors hover:border-pvc-gold hover:text-pvc-gold"
+                  >
+                    {cityNames[option]}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-col divide-y divide-black/10">
+            {drawerItems.map(item => {
+              const active = isActivePath(pathname, item.href);
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={event => {
+                    event.preventDefault();
+                    goTo(item.href);
+                  }}
+                  className={[
+                    "flex items-center py-4 font-roboto text-sm uppercase tracking-[0.18em] transition-colors",
+                    active ? "font-medium text-pvc-gold" : "font-normal text-pvc-ink/75 hover:text-pvc-green",
+                  ].join(" ")}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => goTo(city ? getCityPath(city, "contact") : "/contact#contact-enquiry-form")}
+            className="mt-7 flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-pvc-gold px-5 font-roboto text-[11px] uppercase tracking-[0.2em] text-white transition-colors hover:bg-pvc-gold/85"
+          >
+            <Phone className="h-3.5 w-3.5" />
+            Enquire Now
+          </button>
+        </nav>
+      </aside>
+    </>
+  );
+}
 
 export default function Navbar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [solid, setSolid] = useState(false);
-  const [open, setOpen]   = useState(false);
+  const [open, setOpen] = useState(false);
 
-  /* Close mobile menu on route change */
-  useEffect(() => { setOpen(false); }, [location.pathname]);
+  const { pathname } = location;
+  const city: CityKey | null = pathname.startsWith("/lahore")
+    ? "lahore"
+    : pathname.startsWith("/islamabad")
+    ? "islamabad"
+    : null;
+  const cityBase = city ? cityRoutes[city] : "/lahore";
+
+  useEffect(() => {
+    setOpen(false);
+  }, [location.pathname, location.hash]);
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 24);
@@ -30,37 +191,59 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const { pathname } = location;
-  const isLahore        = pathname.startsWith("/lahore");
-  const isIslamabad     = pathname.startsWith("/islamabad");
-  const isUk            = pathname === "/uk";
-  const isContact       = pathname === "/contact";
-  const isAbout         = pathname === "/about";
-  const isPaymentPlans  = pathname === "/lahore/payment-plans" || pathname === "/islamabad/payment-plans";
-
-  const cityBase = isIslamabad ? "/islamabad" : "/lahore";
-
-  function paymentPlansRoute(): string {
-    return `${cityBase}/payment-plans`;
-  }
+  useEffect(() => {
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setOpen(false);
+    }
+    if (open) {
+      document.documentElement.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
+      window.addEventListener("keydown", onKeyDown);
+    }
+    return () => {
+      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open]);
 
   const linkCls = [
-    "group relative pb-1 text-[11px] font-normal uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer font-roboto whitespace-nowrap",
+    "group relative pb-1 font-roboto text-[11px] font-normal uppercase tracking-[0.2em] transition-colors duration-300 cursor-pointer whitespace-nowrap",
     solid ? "text-pvc-ink/75 hover:text-pvc-green" : "text-white/85 hover:text-white",
   ].join(" ");
-
-  const underline = "absolute bottom-0 left-0 h-px w-0 bg-pvc-gold transition-all duration-300 group-hover:w-full";
-
   const activeLinkCls = `${linkCls} !text-pvc-gold`;
+  const underline = "absolute bottom-0 left-0 h-px w-0 bg-pvc-gold transition-all duration-300 group-hover:w-full";
+  const activeUnderline = "absolute bottom-0 left-0 h-px w-full bg-pvc-gold";
+  const logoSrc = solid ? "/blacklogo.png" : "/whitelogo.png";
+  const mobileLogoSrc = solid ? "/parkview-city-mobile-logo-black.png" : "/parkview-city-mobile-logo-white.png";
 
   const enquireNowCls = [
-    "flex items-center gap-2 rounded-full border px-5 py-2 text-[10px] font-normal uppercase tracking-[0.18em] transition-all duration-300 cursor-pointer font-roboto whitespace-nowrap",
+    "flex items-center gap-2 rounded-full border px-5 py-2 font-roboto text-[10px] font-normal uppercase tracking-[0.18em] transition-all duration-300 cursor-pointer whitespace-nowrap",
     solid
       ? "border-pvc-ink/25 text-pvc-ink/60 hover:border-pvc-gold hover:text-pvc-gold"
-      : "border-white/65 bg-[rgba(0,0,0,0.38)] text-white hover:bg-[#C4973A] hover:border-[#C4973A] hover:text-white",
+      : "border-white/65 bg-[rgba(0,0,0,0.38)] text-white hover:border-[#C4973A] hover:bg-[#C4973A] hover:text-white",
   ].join(" ");
 
-  /* ── Section smooth-scroll for active city ──────────────────── */
+  function scrollToId(id: string) {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function goTo(href: string) {
+    setOpen(false);
+    const [base, hash] = href.split("#");
+    if (hash) {
+      const targetPath = base || "/";
+      if (pathname === targetPath) {
+        navigate(href, { state: { scrollTo: hash, ts: Date.now() } });
+        window.requestAnimationFrame(() => scrollToId(hash));
+        return;
+      }
+      navigate(href, { state: { scrollTo: hash, ts: Date.now() } });
+      return;
+    }
+    navigate(href);
+  }
+
   function goToCitySection(id: string) {
     setOpen(false);
     if (pathname === cityBase) {
@@ -70,135 +253,68 @@ export default function Navbar() {
     navigate(`${cityBase}#${id}`);
   }
 
-  /* ── Page navigation (closes mobile menu) ──────────────────── */
-  function goTo(path: string) {
-    setOpen(false);
-    navigate(path);
+  function renderLink(item: NavItem) {
+    const active = isActivePath(pathname, item.href);
+    return (
+      <a
+        key={item.label}
+        href={item.href}
+        onClick={event => {
+          event.preventDefault();
+          goTo(item.href);
+        }}
+        className={active ? activeLinkCls : linkCls}
+      >
+        {item.label}
+        <span className={active ? activeUnderline : underline} />
+      </a>
+    );
   }
-
-  const logoSrc = solid ? "/blacklogo.png" : "/whitelogo.png";
 
   return (
     <header className="fixed inset-x-0 top-0 z-40">
-
-      {/* Dark gradient for hero readability */}
       <div className={`pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 to-transparent transition-opacity duration-300 ${solid ? "opacity-0" : "opacity-100"}`} />
+      <div className={`pointer-events-none absolute inset-0 border-b border-gray-200/60 bg-white/20 backdrop-blur-2xl transition-opacity duration-300 ${solid ? "opacity-100" : "opacity-0"}`} />
 
-      {/* Blurred white for scrolled state */}
-      <div className={`pointer-events-none absolute inset-0 bg-white/20 backdrop-blur-2xl border-b border-gray-200/60 transition-opacity duration-300 ${solid ? "opacity-100" : "opacity-0"}`} />
-
-      {/* ── Desktop bar ─────────────────────────────────────────── */}
       <div className="relative z-10 mx-auto hidden h-[75px] max-w-[1500px] items-center px-10 lg:flex">
-
-        {/* Logo — always pinned to exact page centre */}
         <a
           href="/"
-          onClick={e => { e.preventDefault(); goTo("/"); }}
-          className="absolute left-1/2 -translate-x-1/2 flex shrink-0 cursor-pointer items-center"
+          onClick={event => {
+            event.preventDefault();
+            goTo("/");
+          }}
+          className="absolute left-1/2 flex shrink-0 -translate-x-1/2 cursor-pointer items-center"
         >
-          <img
-            src={logoSrc}
-            alt="Park View City"
-            className="h-[50px] w-auto object-contain transition-opacity duration-300"
-          />
+          <img src={logoSrc} alt="ParkView City" className="h-[50px] w-auto object-contain transition-opacity duration-300" />
         </a>
 
-        {/* Left links — right-aligned toward centre */}
-        <nav className="flex flex-1 items-center justify-end gap-7 pr-20">
-          {(isLahore || isIslamabad) ? (
-            cityScrollLinks.slice(0, 3).map(({ label, id }) => (
-              <a
-                key={label}
-                href={`${cityBase}#${id}`}
-                onClick={e => { e.preventDefault(); goToCitySection(id); }}
-                className={linkCls}
-              >
-                {label}<span className={underline} />
-              </a>
-            ))
+        <nav className="flex flex-1 items-center justify-end gap-6 pr-20">
+          {city ? (
+            <>
+              {renderLink({ label: city === "lahore" ? "Islamabad" : "Lahore", href: city === "lahore" ? "/islamabad" : "/lahore" })}
+              <a href={getCityPath(city, "properties")} onClick={event => { event.preventDefault(); goToCitySection("properties"); }} className={linkCls}>Properties<span className={underline} /></a>
+              {renderLink({ label: "Amenities", href: getCityPath(city, "amenities") })}
+            </>
           ) : (
-            globalLeftLinks.map(link => {
-              const href =
-                link === "Lahore"           ? "/lahore"    :
-                link === "Islamabad"        ? "/islamabad" :
-                link === "Parkview City UK" ? "/uk"        : "/";
-              const isActive =
-                (link === "Lahore"           && isLahore)    ||
-                (link === "Islamabad"        && isIslamabad) ||
-                (link === "Parkview City UK" && isUk);
-              return (
-                <a
-                  key={link}
-                  href={href}
-                  onClick={e => { e.preventDefault(); goTo(href); }}
-                  className={isActive ? activeLinkCls : linkCls}
-                >
-                  {link}<span className={isActive ? "absolute bottom-0 left-0 h-px w-full bg-pvc-gold" : underline} />
-                </a>
-              );
-            })
+            globalLeftLinks.map(renderLink)
           )}
         </nav>
 
-        {/* Right links + Enquire Now — left-aligned from centre */}
-        <div className="flex flex-1 items-center gap-7 pl-20">
-          {(isLahore || isIslamabad) ? (
+        <div className="flex flex-1 items-center gap-6 pl-20">
+          {city ? (
             <>
-              {cityScrollLinks.slice(3).map(({ label, id }) => (
-                <a
-                  key={label}
-                  href={`${cityBase}#${id}`}
-                  onClick={e => { e.preventDefault(); goToCitySection(id); }}
-                  className={linkCls}
-                >
-                  {label}<span className={underline} />
-                </a>
-              ))}
-              <a
-                href={paymentPlansRoute()}
-                onClick={e => { e.preventDefault(); goTo(paymentPlansRoute()); }}
-                className={isPaymentPlans ? activeLinkCls : linkCls}
-              >
-                Payment Plans
-                <span className={isPaymentPlans ? "absolute bottom-0 left-0 h-px w-full bg-pvc-gold" : underline} />
-              </a>
-              <a
-                href="/contact"
-                onClick={e => { e.preventDefault(); goTo("/contact"); }}
-                className={isContact ? activeLinkCls : linkCls}
-              >
-                Contact Us
-                <span className={isContact ? "absolute bottom-0 left-0 h-px w-full bg-pvc-gold" : underline} />
-              </a>
+              <a href={getCityPath(city, "virtual-tour")} onClick={event => { event.preventDefault(); goToCitySection("virtual-tour"); }} className={linkCls}>Virtual Tours<span className={underline} /></a>
+              {renderLink({ label: "Payment Plans", href: getCityPath(city, "payment-plans") })}
+              <a href={getCityPath(city, "contact")} onClick={event => { event.preventDefault(); goTo(getCityPath(city, "contact")); }} className={linkCls}>Contact Us<span className={underline} /></a>
             </>
           ) : (
-            globalRightLinks.map(link => {
-              const href =
-                link === "Contact"  ? "/contact"  :
-                link === "About Us" ? "/about"    :
-                link === "Gallery"  ? "/#gallery" : "/";
-              const isActive =
-                (link === "Contact"  && isContact) ||
-                (link === "About Us" && isAbout);
-              return (
-                <a
-                  key={link}
-                  href={href}
-                  onClick={e => { e.preventDefault(); goTo(href); }}
-                  className={isActive ? activeLinkCls : linkCls}
-                >
-                  {link}
-                  <span className={isActive ? "absolute bottom-0 left-0 h-px w-full bg-pvc-gold" : underline} />
-                </a>
-              );
-            })
+            globalRightLinks.map(renderLink)
           )}
 
-          {/* Enquire Now */}
           <div className="ml-auto">
             <button
               type="button"
-              onClick={() => goTo("/contact#contact-form")}
+              onClick={() => goTo(city ? getCityPath(city, "contact") : "/contact#contact-enquiry-form")}
               className={enquireNowCls}
             >
               <Phone className="h-3 w-3" />
@@ -208,106 +324,37 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* ── Mobile bar ──────────────────────────────────────────── */}
       <div className="relative z-10 flex h-[70px] items-center justify-between px-5 lg:hidden">
         <a
           href="/"
-          onClick={e => { e.preventDefault(); goTo("/"); }}
+          onClick={event => {
+            event.preventDefault();
+            goTo("/");
+          }}
           className="flex items-center"
         >
-          <img
-            src={logoSrc}
-            alt="Park View City"
-            className="h-[52px] w-auto object-contain transition-opacity duration-300"
-          />
+          <img src={mobileLogoSrc} alt="ParkView City" className="h-auto max-w-[145px] object-contain transition-opacity duration-300" />
         </a>
         <button
-          className={["transition-colors duration-200 cursor-pointer p-2", solid ? "text-pvc-ink" : "text-white"].join(" ")}
-          aria-label={open ? "Close menu" : "Open menu"}
-          onClick={() => setOpen(v => !v)}
+          type="button"
+          className={["p-2 transition-colors duration-200 cursor-pointer", solid ? "text-pvc-ink" : "text-white"].join(" ")}
+          aria-label="Open menu"
+          aria-expanded={open}
+          aria-controls="mobile-navigation-drawer"
+          onClick={() => setOpen(true)}
         >
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          <Menu className="h-6 w-6" />
         </button>
       </div>
 
-      {/* ── Mobile dropdown ─────────────────────────────────────── */}
-      {open && (
-        <div className="absolute inset-x-0 top-[70px] z-50 bg-white/95 backdrop-blur-2xl shadow-xl lg:hidden">
-          <nav className="flex flex-col divide-y divide-gray-100 px-6 py-2">
-            {(isLahore || isIslamabad) ? (
-              <>
-                {cityScrollLinks.map(({ label, id }) => (
-                  <a
-                    key={label}
-                    href={`${cityBase}#${id}`}
-                    onClick={e => { e.preventDefault(); goToCitySection(id); }}
-                    className="flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] text-pvc-ink/75 transition-colors hover:text-pvc-gold cursor-pointer"
-                  >
-                    {label}
-                  </a>
-                ))}
-                <a
-                  href={paymentPlansRoute()}
-                  onClick={e => { e.preventDefault(); goTo(paymentPlansRoute()); }}
-                  className={[
-                    "flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] transition-colors cursor-pointer",
-                    isPaymentPlans ? "text-pvc-gold" : "text-pvc-ink/75 hover:text-pvc-gold",
-                  ].join(" ")}
-                >
-                  Payment Plans
-                </a>
-                <a
-                  href="/contact"
-                  onClick={e => { e.preventDefault(); goTo("/contact"); }}
-                  className={[
-                    "flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] transition-colors cursor-pointer",
-                    isContact ? "text-pvc-gold" : "text-pvc-ink/75 hover:text-pvc-gold",
-                  ].join(" ")}
-                >
-                  Contact Us
-                </a>
-              </>
-            ) : (
-              [...globalLeftLinks, ...globalRightLinks].map(link => {
-                const href =
-                  link === "Lahore"    ? "/lahore"    :
-                  link === "Islamabad" ? "/islamabad" :
-                  link === "Parkview City UK" ? "/uk" :
-                  link === "Contact"   ? "/contact"   :
-                  link === "About Us"  ? "/about"     :
-                  link === "Gallery"   ? "/#gallery"  : "/";
-                const isActive =
-                  (link === "Lahore"    && isLahore)    ||
-                  (link === "Islamabad" && isIslamabad)  ||
-                  (link === "Parkview City UK" && isUk)   ||
-                  (link === "Contact"   && isContact)    ||
-                  (link === "About Us"  && isAbout);
-                return (
-                  <a
-                    key={link}
-                    href={href}
-                    onClick={e => { e.preventDefault(); goTo(href); }}
-                    className={[
-                      "flex items-center py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] transition-colors cursor-pointer",
-                      isActive ? "text-pvc-gold" : "text-pvc-ink/75 hover:text-pvc-green",
-                    ].join(" ")}
-                  >
-                    {link}
-                  </a>
-                );
-              })
-            )}
-            <button
-              type="button"
-              onClick={() => goTo("/contact#contact-form")}
-              className="flex items-center gap-2 py-4 font-roboto text-sm font-normal uppercase tracking-[0.18em] text-pvc-gold transition-colors hover:text-pvc-green cursor-pointer text-left"
-            >
-              <Phone className="h-4 w-4" />
-              Enquire Now
-            </button>
-          </nav>
-        </div>
-      )}
+      <NavigationDrawer
+        open={open}
+        solid={solid}
+        city={city}
+        pathname={pathname}
+        close={() => setOpen(false)}
+        goTo={goTo}
+      />
     </header>
   );
 }
