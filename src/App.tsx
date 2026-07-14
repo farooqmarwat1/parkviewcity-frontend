@@ -26,6 +26,8 @@ import {
   TULIP_DETAIL,
   CRYSTAL_DETAIL,
   JADE_DETAIL,
+  EXECUTIVE_BLOCK_DETAIL,
+  IMPERIAL_BLOCK_DETAIL,
   ROSE_MARKET_DETAIL,
   TULIP_COMMERCIAL_DETAIL,
   BROADWAY_COMMERCIAL_DETAIL,
@@ -173,6 +175,8 @@ function LahoreHomePage() {
     selectedProperty === "tulip-overseas-block" ? TULIP_DETAIL :
     selectedProperty === "crystal-block"        ? CRYSTAL_DETAIL :
     selectedProperty === "jade-extension"       ? JADE_DETAIL :
+    selectedProperty === "executive-block"      ? EXECUTIVE_BLOCK_DETAIL :
+    selectedProperty === "imperial-block"       ? IMPERIAL_BLOCK_DETAIL :
     selectedProperty === "rose-market"          ? ROSE_MARKET_DETAIL :
     selectedProperty === "tulip-commercial"     ? TULIP_COMMERCIAL_DETAIL :
     selectedProperty === "broadway-commercial"  ? BROADWAY_COMMERCIAL_DETAIL :
