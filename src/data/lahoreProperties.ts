@@ -79,7 +79,7 @@ export const lahoreCommercialProperties: LahorePropertyCard[] = [
   },
   {
     id: "the-walk",
-    image: "/The%20Walk%20(10Marla).webp",
+    image: "/the-walk-1 (2).webp",
     badge: "Retail Block",
     meta: "The Walk, ParkView City Lahore",
     title: "The Walk",
@@ -144,7 +144,7 @@ const lahoreSpecificGalleries: Record<string, GalleryImage[]> = {
     { src: "/the-walk-2 (1).webp", alt: "The Walk II gallery image" },
   ],
   "the-walk": [
-    { src: "/the-walk-1 (2).webp", alt: "The Walk collage image" },
+    { src: "/the-walk-1 (1).webp", alt: "The Walk gallery image" },
   ],
   "commercial-plots": [
     { src: "/commercial-plots2.webp", alt: "Commercial Plots collage image" },
