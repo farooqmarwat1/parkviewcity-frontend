@@ -258,7 +258,7 @@ export const islamabadCommercialPlans: LahorePaymentPlan[] = [
     category: "Commercial",
     title: "The Walk",
     planType: "On Cash / Lump-Sum Payment",
-    image: "/The_Walk_isb.png",
+    image: "/the-walk-islamabd.webp",
     description:
       "The Walk is ParkView City Islamabad's premium retail destination, available on a lump-sum cash payment basis.",
     tableColumns: ["Plot Size / Category", "Total Price (PKR)"],
