@@ -60,15 +60,12 @@ const islamabadSpecificGalleries: Record<string, GalleryImage[]> = {
   ],
   "the-walk": [
     { src: "/the-walk-islamabad-1.webp", alt: "The Walk Islamabad gallery image 1" },
-    { src: "/the-walk-islamabad-2.webp", alt: "The Walk Islamabad gallery image 2" },
   ],
   "downtown-islamabad": [
     { src: "/Downtown_Islamabad2 (1).webp", alt: "Downtown Islamabad gallery image 1" },
-    { src: "/Downtown_Islamabad2 (2).webp", alt: "Downtown Islamabad gallery image 2" },
   ],
   "overseas-commercial": [
-    { src: "/Overseas_commercial_islamabad.webp", alt: "Overseas Commercial Islamabad gallery image 1" },
-    { src: "/Overseas_commercial_islamabad2.webp", alt: "Overseas Commercial Islamabad gallery image 2" },
+    { src: "/Overseas_commercial_islamabad2.webp", alt: "Overseas Commercial Islamabad gallery image" },
   ],
   "boulevard": [
     { src: "/Boulevard-1.webp", alt: "Boulevard gallery image 1" },
