@@ -1,13 +1,82 @@
-import type { PropertyDetailData } from "@/components/lahore/PropertyDetailOverlay";
+import type { GalleryImage, PropertyDetailData } from "@/components/lahore/PropertyDetailOverlay";
 
-const TEMP_GALLERY = [
-  { src: "/Tulip-Overseas-Block%20(1).webp", alt: "ParkView City Islamabad community landscape" },
-  { src: "/Tulip-Overseas-Block%20(2).webp", alt: "ParkView City Islamabad green spaces" },
-  { src: "/Crystal%20Block%20Gallery%20(1).webp", alt: "ParkView City Islamabad streetscape" },
-  { src: "/Crystal%20Block%20Gallery%20(2).webp", alt: "ParkView City Islamabad community view" },
-  { src: "/A%20Place%20to%20call%20home.webp", alt: "ParkView City Islamabad aerial overview" },
-  { src: "/VirtualTourSection.webp", alt: "ParkView City Islamabad drone view" },
-];
+function galleryWithCover(cover: GalleryImage, images: GalleryImage[] = []): GalleryImage[] {
+  const seen = new Set<string>();
+  return [cover, ...images].filter(image => {
+    if (seen.has(image.src)) return false;
+    seen.add(image.src);
+    return true;
+  });
+}
+
+const islamabadSpecificGalleries: Record<string, GalleryImage[]> = {
+  "j-block-privilege": [
+    { src: "/J-block-1.webp", alt: "J Block gallery image 1" },
+    { src: "/J-block-2.webp", alt: "J Block gallery image 2" },
+    { src: "/J-block-3.webp", alt: "J Block gallery image 3" },
+    { src: "/J-block-4.webp", alt: "J Block gallery image 4" },
+  ],
+  "d-block": [
+    { src: "/D-block-1.webp", alt: "D Block gallery image 1" },
+    { src: "/D-block-2.webp", alt: "D Block gallery image 2" },
+    { src: "/D-block-3.webp", alt: "D Block gallery image 3" },
+    { src: "/D-block-4.webp", alt: "D Block gallery image 4" },
+  ],
+  "overseas-premium": [
+    { src: "/Overseas-Premium-1.webp", alt: "Overseas Premium gallery image 1" },
+    { src: "/Overseas-Premium-2.webp", alt: "Overseas Premium gallery image 2" },
+    { src: "/Overseas-Premium-3.webp", alt: "Overseas Premium gallery image 3" },
+    { src: "/Overseas-Premium-4.webp", alt: "Overseas Premium gallery image 4" },
+  ],
+  "terrace-c-block": [
+    { src: "/Terrace-block-1.webp", alt: "Terrace Block gallery image 1" },
+    { src: "/terrace-block-2.webp", alt: "Terrace Block gallery image 2" },
+    { src: "/terrace-block-3.webp", alt: "Terrace Block gallery image 3" },
+    { src: "/terrace-block-4.webp", alt: "Terrace Block gallery image 4" },
+  ],
+  "e-block": [
+    { src: "/E-block-1.webp", alt: "E Block gallery image 1" },
+    { src: "/E-block-2.webp", alt: "E Block gallery image 2" },
+    { src: "/E-block-3.webp", alt: "E Block gallery image 3" },
+    { src: "/E-block-4.webp", alt: "E Block gallery image 4" },
+  ],
+  "f-block": [
+    { src: "/F-block-1.webp", alt: "F Block gallery image 1" },
+    { src: "/F-block-2.webp", alt: "F Block gallery image 2" },
+    { src: "/F-block-3.webp", alt: "F Block gallery image 3" },
+    { src: "/F-block-4.webp", alt: "F Block gallery image 4" },
+  ],
+  "h-block": [
+    { src: "/H-block-1.webp", alt: "H Block gallery image 1" },
+    { src: "/H-block-2.webp", alt: "H Block gallery image 2" },
+    { src: "/H-block-3.webp", alt: "H Block gallery image 3" },
+    { src: "/H-block-4.webp", alt: "H Block gallery image 4" },
+  ],
+  "fountain-view-residences": [
+    { src: "/Fountain-view-residences-1.webp", alt: "Fountain View Residences gallery image 1" },
+    { src: "/Fountain-view-residences-2.webp", alt: "Fountain View Residences gallery image 2" },
+    { src: "/Fountain-view-residences-3.webp", alt: "Fountain View Residences gallery image 3" },
+    { src: "/Fountain-view-residences-4.webp", alt: "Fountain View Residences gallery image 4" },
+  ],
+  "the-walk": [
+    { src: "/the-walk-islamabad-1.webp", alt: "The Walk Islamabad gallery image 1" },
+    { src: "/the-walk-islamabad-2.webp", alt: "The Walk Islamabad gallery image 2" },
+  ],
+  "downtown-islamabad": [
+    { src: "/Downtown_Islamabad2 (1).webp", alt: "Downtown Islamabad gallery image 1" },
+    { src: "/Downtown_Islamabad2 (2).webp", alt: "Downtown Islamabad gallery image 2" },
+  ],
+  "overseas-commercial": [
+    { src: "/Overseas_commercial_islamabad.webp", alt: "Overseas Commercial Islamabad gallery image 1" },
+    { src: "/Overseas_commercial_islamabad2.webp", alt: "Overseas Commercial Islamabad gallery image 2" },
+  ],
+  "boulevard": [
+    { src: "/Boulevard-1.webp", alt: "Boulevard gallery image 1" },
+    { src: "/Boulevard-2.webp", alt: "Boulevard gallery image 2" },
+    { src: "/Boulevard-3.webp", alt: "Boulevard gallery image 3" },
+    { src: "/Boulevard-4.webp", alt: "Boulevard gallery image 4" },
+  ],
+};
 
 export const J_BLOCK_DETAIL: PropertyDetailData = {
   id: "j-block-privilege",
@@ -27,7 +96,7 @@ export const J_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: TEMP_GALLERY,
+  gallery: galleryWithCover({ src: "/J_Block_Privilege.png", alt: "J Block Privilege cover image" }, islamabadSpecificGalleries["j-block-privilege"]),
   galleryId: "j-block-gallery",
   galleryAriaLabel: "Enlarge J Block Privilege gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#j-block-privilege-plans",
@@ -52,14 +121,7 @@ export const D_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: [
-    { src: "/Crystal%20Block%20Gallery%20(1).webp", alt: "D Block community view" },
-    { src: "/Crystal%20Block%20Gallery%20(2).webp", alt: "D Block residential streetscape" },
-    { src: "/Tulip-Overseas-Block%20(3).webp", alt: "D Block green landscape" },
-    { src: "/Tulip-Overseas-Block%20(4).webp", alt: "D Block aerial overview" },
-    { src: "/Crystal%20Block%20Gallery%20(3).webp", alt: "D Block entrance" },
-    { src: "/Crystal%20Block%20Gallery%20(4).webp", alt: "D Block roads and landscaping" },
-  ],
+  gallery: galleryWithCover({ src: "/Block_D.png", alt: "D Block cover image" }, islamabadSpecificGalleries["d-block"]),
   galleryId: "d-block-gallery",
   galleryAriaLabel: "Enlarge D Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#d-block-plans",
@@ -84,14 +146,7 @@ export const OVERSEAS_PREMIUM_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: [
-    { src: "/Tulip-Overseas-Block%20(1).webp", alt: "Overseas Premium block community" },
-    { src: "/Tulip-Overseas-Block%20(5).webp", alt: "Overseas Premium block landscape" },
-    { src: "/Crystal%20Block%20Gallery%20(5).webp", alt: "Overseas Premium block view" },
-    { src: "/Crystal%20Block%20Gallery%20(6).webp", alt: "Overseas Premium residential area" },
-    { src: "/A%20Place%20to%20call%20home.webp", alt: "Overseas Premium community overview" },
-    { src: "/VirtualTourSection.webp", alt: "Overseas Premium aerial view" },
-  ],
+  gallery: galleryWithCover({ src: "/OverseasPremium.png", alt: "Overseas Premium cover image" }, islamabadSpecificGalleries["overseas-premium"]),
   galleryId: "overseas-premium-gallery",
   galleryAriaLabel: "Enlarge Overseas Premium gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#overseas-premium-plans",
@@ -116,7 +171,7 @@ export const AB_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: TEMP_GALLERY,
+  gallery: galleryWithCover({ src: "/Block_AB.png", alt: "AB Block cover image" }),
   galleryId: "ab-block-gallery",
   galleryAriaLabel: "Enlarge AB Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#a&b-block-plans",
@@ -141,14 +196,7 @@ export const TERRACE_C_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: [
-    { src: "/Crystal%20Block%20Gallery%20(1).webp", alt: "Terrace C Block scenic view" },
-    { src: "/Crystal%20Block%20Gallery%20(2).webp", alt: "Terrace C Block landscape" },
-    { src: "/Tulip-Overseas-Block%20(1).webp", alt: "Terrace C Block community view" },
-    { src: "/Tulip-Overseas-Block%20(2).webp", alt: "Terrace C Block green spaces" },
-    { src: "/Crystal%20Block%20Gallery%20(3).webp", alt: "Terrace C Block roads" },
-    { src: "/A%20Place%20to%20call%20home.webp", alt: "Terrace C Block overview" },
-  ],
+  gallery: galleryWithCover({ src: "/Terrace_Block_C.png", alt: "Terrace C Block cover image" }, islamabadSpecificGalleries["terrace-c-block"]),
   galleryId: "terrace-c-block-gallery",
   galleryAriaLabel: "Enlarge Terrace C Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#terrace-c-block-plans",
@@ -173,14 +221,7 @@ export const E_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: [
-    { src: "/Crystal%20Block%20Gallery%20(4).webp", alt: "E Block community view" },
-    { src: "/Crystal%20Block%20Gallery%20(5).webp", alt: "E Block streetscape" },
-    { src: "/Tulip-Overseas-Block%20(3).webp", alt: "E Block green landscape" },
-    { src: "/Tulip-Overseas-Block%20(4).webp", alt: "E Block residential area" },
-    { src: "/Crystal%20Block%20Gallery%20(6).webp", alt: "E Block overhead view" },
-    { src: "/VirtualTourSection.webp", alt: "E Block drone view" },
-  ],
+  gallery: galleryWithCover({ src: "/Block_E.png", alt: "E Block cover image" }, islamabadSpecificGalleries["e-block"]),
   galleryId: "e-block-gallery",
   galleryAriaLabel: "Enlarge E Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#e-block-plans",
@@ -205,7 +246,7 @@ export const F_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: TEMP_GALLERY,
+  gallery: galleryWithCover({ src: "/Block_F.png", alt: "F Block cover image" }, islamabadSpecificGalleries["f-block"]),
   galleryId: "f-block-gallery",
   galleryAriaLabel: "Enlarge F Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#f-block-plans",
@@ -230,14 +271,7 @@ export const H_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: [
-    { src: "/Tulip-Overseas-Block%20(5).webp", alt: "H Block community landscape" },
-    { src: "/Tulip-Overseas-Block%20(6).webp", alt: "H Block green spaces" },
-    { src: "/Crystal%20Block%20Gallery%20(1).webp", alt: "H Block streetscape" },
-    { src: "/Crystal%20Block%20Gallery%20(2).webp", alt: "H Block residential view" },
-    { src: "/A%20Place%20to%20call%20home.webp", alt: "H Block aerial overview" },
-    { src: "/VirtualTourSection.webp", alt: "H Block drone view" },
-  ],
+  gallery: galleryWithCover({ src: "/Block_H.png", alt: "H Block cover image" }, islamabadSpecificGalleries["h-block"]),
   galleryId: "h-block-gallery",
   galleryAriaLabel: "Enlarge H Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#h-block-plans",
@@ -262,7 +296,7 @@ export const FOUNTAIN_VIEW_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: TEMP_GALLERY,
+  gallery: galleryWithCover({ src: "/fountain-view.png", alt: "Fountain View Residences cover image" }, islamabadSpecificGalleries["fountain-view-residences"]),
   galleryId: "fountain-view-gallery",
   galleryAriaLabel: "Enlarge Fountain View Residences gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#fountain-view-residences-plans",
@@ -287,7 +321,7 @@ export const THE_WALK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: TEMP_GALLERY,
+  gallery: galleryWithCover({ src: "/The_Walk_isb.png", alt: "The Walk Islamabad cover image" }, islamabadSpecificGalleries["the-walk"]),
   galleryId: "the-walk-gallery",
   galleryAriaLabel: "Enlarge The Walk gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#the-walk-plans",
@@ -312,7 +346,7 @@ export const DOWNTOWN_ISLAMABAD_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: TEMP_GALLERY,
+  gallery: galleryWithCover({ src: "/Downtown_Islamabad.png", alt: "Downtown Islamabad cover image" }, islamabadSpecificGalleries["downtown-islamabad"]),
   galleryId: "downtown-islamabad-gallery",
   galleryAriaLabel: "Enlarge Downtown Islamabad gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#downtown-islamabad-plans",
@@ -337,7 +371,7 @@ export const OVERSEAS_COMMERCIAL_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: TEMP_GALLERY,
+  gallery: galleryWithCover({ src: "/Overseas_commercial_isb.png", alt: "Overseas Commercial Islamabad cover image" }, islamabadSpecificGalleries["overseas-commercial"]),
   galleryId: "overseas-commercial-gallery",
   galleryAriaLabel: "Enlarge Overseas Commercial gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#overseas-commercial-plans",
@@ -362,14 +396,7 @@ export const BOULEVARD_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: [
-    { src: "/Crystal%20Block%20Gallery%20(5).webp", alt: "The Boulevard panoramic view" },
-    { src: "/Crystal%20Block%20Gallery%20(6).webp", alt: "The Boulevard tree-lined road" },
-    { src: "/Tulip-Overseas-Block%20(1).webp", alt: "The Boulevard community landscape" },
-    { src: "/Tulip-Overseas-Block%20(2).webp", alt: "The Boulevard streetscape" },
-    { src: "/A%20Place%20to%20call%20home.webp", alt: "The Boulevard aerial view" },
-    { src: "/VirtualTourSection.webp", alt: "The Boulevard drone overview" },
-  ],
+  gallery: galleryWithCover({ src: "/Boulevard.png", alt: "The Boulevard cover image" }, islamabadSpecificGalleries["boulevard"]),
   galleryId: "boulevard-gallery",
   galleryAriaLabel: "Enlarge The Boulevard gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#boulevard-plans",

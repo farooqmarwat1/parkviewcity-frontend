@@ -149,6 +149,40 @@ export const lahoreResidentialPlans: LahorePaymentPlan[] = [
     ],
     pdfUrl: null,
   },
+  {
+    slug: "executive-block-payment-plan",
+    family: "Executive Block",
+    section: "residential",
+    category: "Residential",
+    title: "Executive Block",
+    planType: "Residential Payment Plan",
+    image: "/executive.webp",
+    description:
+      "Executive Block offers residential plots in a planned family-focused setting inside ParkView City Lahore, with secure access and convenient community amenities.",
+    tableColumns: ["Plot Size / Category", "Total Price (PKR)"],
+    tableRows: [
+      ["5 Marla", "Contact Sales"],
+      ["10 Marla", "Contact Sales"],
+    ],
+    pdfUrl: null,
+  },
+  {
+    slug: "imperial-block-residential-payment-plan",
+    family: "Imperial Block",
+    section: "residential",
+    category: "Residential",
+    title: "Imperial Block",
+    planType: "Residential Payment Plan",
+    image: "/imperial.webp",
+    description:
+      "Imperial Block brings premium residential inventory to ParkView City Lahore with planned infrastructure, secure surroundings, and strong lifestyle access.",
+    tableColumns: ["Plot Size / Category", "Total Price (PKR)"],
+    tableRows: [
+      ["5 Marla", "Contact Sales"],
+      ["10 Marla", "Contact Sales"],
+    ],
+    pdfUrl: null,
+  },
 ];
 
 export const lahoreCommercialPlans: LahorePaymentPlan[] = [
