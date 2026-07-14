@@ -175,7 +175,7 @@ const residential: Property[] = [
 const commercial: Property[] = [
   {
     id:    "the-walk",
-    image: "/The_Walk_isb.png",
+    image: "/the-walk-islamabd.webp",
     badge: "Boutique Commercial",
     meta:  "The Walk, ParkView City Islamabad",
     title: "The Walk",

@@ -65,7 +65,7 @@ const islamabadSpecificGalleries: Record<string, GalleryImage[]> = {
     { src: "/Fountain-view-residences-4.webp", alt: "Fountain View Residences gallery image 4" },
   ],
   "the-walk": [
-    { src: "/the-walk-islamabad-1.webp", alt: "The Walk Islamabad gallery image 1" },
+    { src: "/the-walk-islamabd2.webp", alt: "The Walk Islamabad collage image" },
   ],
   "downtown-islamabad": [
     { src: "/Downtown_Islamabad2 (1).webp", alt: "Downtown Islamabad gallery image 1" },
@@ -310,7 +310,7 @@ export const THE_WALK_DETAIL: PropertyDetailData = {
   id: "the-walk",
   titleId: "the-walk-detail-title",
   title: "The Walk",
-  heroImage: "/The_Walk_isb.png",
+  heroImage: "/the-walk-islamabd.webp",
   heroAlt: "The Walk commercial promenade, ParkView City Islamabad",
   badges: ["Boutique Commercial"],
   location: "The Walk, ParkView City Islamabad",
@@ -324,7 +324,7 @@ export const THE_WALK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: galleryWithCover({ src: "/The_Walk_isb.png", alt: "The Walk Islamabad cover image" }, islamabadSpecificGalleries["the-walk"]),
+  gallery: galleryWithCover({ src: "/the-walk-islamabd.webp", alt: "The Walk Islamabad cover image" }, islamabadSpecificGalleries["the-walk"]),
   galleryId: "the-walk-gallery",
   galleryAriaLabel: "Enlarge The Walk gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#the-walk-plans",

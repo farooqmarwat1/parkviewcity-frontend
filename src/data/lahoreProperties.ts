@@ -132,28 +132,22 @@ const lahoreSpecificGalleries: Record<string, GalleryImage[]> = {
     { src: "/tulip-overseas.webp", alt: "Tulip Overseas Block property gallery image" },
   ],
   "rose-market": [
-    { src: "/Rose-Market.webp", alt: "Rose Market commercial gallery image" },
-    { src: "/rose-market-1.webp", alt: "Rose Market commercial exterior gallery image" },
+    { src: "/rose-market-1.webp", alt: "Rose Market commercial collage image" },
   ],
   "tulip-commercial": [
-    { src: "/Tulip-Commercial.webp", alt: "Tulip Commercial gallery image 1" },
-    { src: "/Tulip-Commercial2.webp", alt: "Tulip Commercial gallery image 2" },
+    { src: "/Tulip-Commercial2.webp", alt: "Tulip Commercial collage image" },
   ],
   "broadway-commercial": [
-    { src: "/Brodway-Commercial (1).webp", alt: "Broadway Commercial gallery image 1" },
-    { src: "/Brodway-Commercial (2).webp", alt: "Broadway Commercial gallery image 2" },
+    { src: "/Brodway-Commercial (2).webp", alt: "Broadway Commercial collage image" },
   ],
   "the-walk-ii": [
-    { src: "/the-walk-2 (1).webp", alt: "The Walk II gallery image 1" },
-    { src: "/the-walk-2 (2).webp", alt: "The Walk II gallery image 2" },
+    { src: "/the-walk-2 (2).webp", alt: "The Walk II collage image" },
   ],
   "the-walk": [
-    { src: "/the-walk-1 (1).webp", alt: "The Walk gallery image 1" },
-    { src: "/the-walk-1 (2).webp", alt: "The Walk gallery image 2" },
+    { src: "/the-walk-1 (2).webp", alt: "The Walk collage image" },
   ],
   "commercial-plots": [
-    { src: "/commerical-plots.webp", alt: "Commercial Plots gallery image 1" },
-    { src: "/commercial-plots2.webp", alt: "Commercial Plots gallery image 2" },
+    { src: "/commercial-plots2.webp", alt: "Commercial Plots collage image" },
   ],
 };
 
