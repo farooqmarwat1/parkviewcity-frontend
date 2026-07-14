@@ -28,6 +28,12 @@ const islamabadSpecificGalleries: Record<string, GalleryImage[]> = {
     { src: "/Overseas-Premium-3.webp", alt: "Overseas Premium gallery image 3" },
     { src: "/Overseas-Premium-4.webp", alt: "Overseas Premium gallery image 4" },
   ],
+  "ab-block": [
+    { src: "/a-and-b.webp", alt: "A and B Block gallery image 1" },
+    { src: "/a&b-block-2.webp", alt: "A and B Block gallery image 2" },
+    { src: "/a&b-block-3.webp", alt: "A and B Block gallery image 3" },
+    { src: "/a&b-block-1.webp", alt: "A and B Block gallery image 4" },
+  ],
   "terrace-c-block": [
     { src: "/Terrace-block-1.webp", alt: "Terrace Block gallery image 1" },
     { src: "/terrace-block-2.webp", alt: "Terrace Block gallery image 2" },
@@ -60,15 +66,12 @@ const islamabadSpecificGalleries: Record<string, GalleryImage[]> = {
   ],
   "the-walk": [
     { src: "/the-walk-islamabad-1.webp", alt: "The Walk Islamabad gallery image 1" },
-    { src: "/the-walk-islamabad-2.webp", alt: "The Walk Islamabad gallery image 2" },
   ],
   "downtown-islamabad": [
     { src: "/Downtown_Islamabad2 (1).webp", alt: "Downtown Islamabad gallery image 1" },
-    { src: "/Downtown_Islamabad2 (2).webp", alt: "Downtown Islamabad gallery image 2" },
   ],
   "overseas-commercial": [
-    { src: "/Overseas_commercial_islamabad.webp", alt: "Overseas Commercial Islamabad gallery image 1" },
-    { src: "/Overseas_commercial_islamabad2.webp", alt: "Overseas Commercial Islamabad gallery image 2" },
+    { src: "/Overseas_commercial_islamabad2.webp", alt: "Overseas Commercial Islamabad gallery image" },
   ],
   "boulevard": [
     { src: "/Boulevard-1.webp", alt: "Boulevard gallery image 1" },
@@ -171,7 +174,7 @@ export const AB_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: galleryWithCover({ src: "/Block_AB.png", alt: "AB Block cover image" }),
+  gallery: galleryWithCover({ src: "/Block_AB.png", alt: "AB Block cover image" }, islamabadSpecificGalleries["ab-block"]),
   galleryId: "ab-block-gallery",
   galleryAriaLabel: "Enlarge AB Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#a&b-block-plans",
