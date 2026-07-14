@@ -141,7 +141,7 @@ const lahoreSpecificGalleries: Record<string, GalleryImage[]> = {
     { src: "/Brodway-Commercial (2).webp", alt: "Broadway Commercial collage image" },
   ],
   "the-walk-ii": [
-    { src: "/the-walk-2 (2).webp", alt: "The Walk II collage image" },
+    { src: "/the-walk-2 (1).webp", alt: "The Walk II gallery image" },
   ],
   "the-walk": [
     { src: "/the-walk-1 (2).webp", alt: "The Walk collage image" },
