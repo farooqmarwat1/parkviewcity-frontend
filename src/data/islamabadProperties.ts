@@ -28,6 +28,12 @@ const islamabadSpecificGalleries: Record<string, GalleryImage[]> = {
     { src: "/Overseas-Premium-3.webp", alt: "Overseas Premium gallery image 3" },
     { src: "/Overseas-Premium-4.webp", alt: "Overseas Premium gallery image 4" },
   ],
+  "ab-block": [
+    { src: "/a-and-b.webp", alt: "A and B Block gallery image 1" },
+    { src: "/a&b-block-2.webp", alt: "A and B Block gallery image 2" },
+    { src: "/a&b-block-3.webp", alt: "A and B Block gallery image 3" },
+    { src: "/a&b-block-1.webp", alt: "A and B Block gallery image 4" },
+  ],
   "terrace-c-block": [
     { src: "/Terrace-block-1.webp", alt: "Terrace Block gallery image 1" },
     { src: "/terrace-block-2.webp", alt: "Terrace Block gallery image 2" },
@@ -168,7 +174,7 @@ export const AB_BLOCK_DETAIL: PropertyDetailData = {
     "Gated Community",
     "24/7 Security",
   ],
-  gallery: galleryWithCover({ src: "/Block_AB.png", alt: "AB Block cover image" }),
+  gallery: galleryWithCover({ src: "/Block_AB.png", alt: "AB Block cover image" }, islamabadSpecificGalleries["ab-block"]),
   galleryId: "ab-block-gallery",
   galleryAriaLabel: "Enlarge AB Block gallery image",
   paymentPlanRoute: "/islamabad/payment-plans#a&b-block-plans",
